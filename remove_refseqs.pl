@@ -34,11 +34,6 @@ while(defined(my $l = <BLAST>)){
   $start = $items[6];
   $end = $items[7];
   $qlen = $items[12];
-  print "start: $start, end: $end, qlen: $qlen, abs(start-end)/qlen ";
-  print abs($start - $end) / $qlen;
-  print " greater than 0.9: ";
-  print (abs($start - $end) / $qlen >= 0.9);
-  print "\n";
   if (abs($start - $end) / $qlen >= 0.9) {
     $badseqs{$trinityseqid} = "trinity seq id";
   }
@@ -60,6 +55,7 @@ while(defined(my $l = <IN>)){
 	chomp $l;
 	if ($l =~ /^>/) {
 		if ($lastID ne "") {
+      print "lastid: $lastID\n";
       if (exists $badseqs{$lastID}) {
 				print BAD "$lastID\n";
 				print BAD "$seqs{$lastID}";
