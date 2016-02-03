@@ -38,7 +38,7 @@ while(defined(my $l = <IN>)){
   print "qlen is $items[12]";
   $qlen = $items[12];
   if (abs($start - $end) / $qlen >= 0.9) {
-    %badseqs{$trinityseqid} = "trinity seq id";
+    $badseqs{$trinityseqid} = "trinity seq id";
   }
 }	
 close BLAST;
