@@ -7,13 +7,14 @@ my $infile = $ARGV[0] if $ARGV[0];
 my $outfile = $ARGV[1] if $ARGV[1];
 my $blastfile = $ARGV[2] if $ARGV[2];
 my $badfile = $ARGV[3] if $ARGV[3];
-print "This function takes in two arguments: the path of the input fasta file, and the path of the output fasta file, and the path of the blast file with the sequences you want to remove\n" if !$ARGV[0];
-print "This function takes in two arguments: the path of the input fasta file, and the path of the output fasta file, and the path of the blast file with the sequences you want to remove\n" if !$ARGV[1];
-print "This function takes in two arguments: the path of the input fasta file, and the path of the output fasta file, and the path of the blast file with the sequences you want to remove\n" if !$ARGV[2];
+print "This function takes in four arguments: the path of the input fasta file, and the path of the output fasta file, the path of the blast file with the sequences you want to remove, and the path of the file you want to put the removed sequences in\n" if !$ARGV[0];
+print "This function takes in four arguments: the path of the input fasta file, and the path of the output fasta file, the path of the blast file with the sequences you want to remove, and the path of the file you want to put the removed sequences in\n" if !$ARGV[1];
+print "This function takes in four arguments: the path of the input fasta file, and the path of the output fasta file, the path of the blast file with the sequences you want to remove, and the path of the file you want to put the removed sequences in\n" if !$ARGV[2];
+print "This function takes in four arguments: the path of the input fasta file, and the path of the output fasta file, the path of the blast file with the sequences you want to remove, and the path of the file you want to put the removed sequences in\n" if !$ARGV[3];
 exit if !$ARGV[0];
 exit if !$ARGV[1];
 exit if !$ARGV[2];
-
+exit if !$ARGV[3];
 
 my %badseqs;
 my @items;
