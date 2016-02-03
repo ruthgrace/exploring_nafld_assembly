@@ -30,13 +30,9 @@ while(defined(my $l = <BLAST>)){
   # blast tab format is
   # qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qlen slen
   # 0      1      2      3      4        5       6      7    8      9    10     11       12   13
-  print "trinitiy seq id is $items[0]";
   $trinityseqid = $items[0];
-  print "qstart is $items[6]";
   $start = $items[6];
-  print "qend is $items[7]";
   $end = $items[7];
-  print "qlen is $items[12]";
   $qlen = $items[12];
   if (abs($start - $end) / $qlen >= 0.9) {
     $badseqs{$trinityseqid} = "trinity seq id";
