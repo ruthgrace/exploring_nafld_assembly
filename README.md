@@ -25,6 +25,12 @@ To replace the rest of the spaces in the sequence identifiers with underscores, 
 sed -i.backup '/^>/ s/ /_/g' all_genus_orfs_clustered_at_99_unique.fa 
 ```
 
+Trinity, the assembly program I used, also likes to make sequence identifiers with spaces. To remedy, run:
+
+```
+sed -i.backup '/^>/ s/ /_/g' ../scripts/trinity_CL_119_R1/Trinity.fasta 
+```
+
 To make the indexed blast database, run
 
 ```
@@ -42,6 +48,10 @@ nohup ./assembly_test_blast.sh > CL_119_R1_blast_to_refseqs_nohup.out 2>&1&
 ```
 
 ### remove the matches to refseq
+
+```
+nohup perl ./remove_refseqs.pl ../scripts/trinity_CL_119_R1/Trinity.fasta ./CL_119_R1_assembled_no_refseqs.fa CL_119_R1_blast_to_refseqs.out CL_119_R1_assembled_matched_refseqs.fa > remove_refseqs_CL_119_R1_nohup.out 2>&1&
+```
 
 ### translate blast remaining sequences to SEED
 
