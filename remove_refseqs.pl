@@ -17,10 +17,10 @@ exit if !$ARGV[2];
 
 my %badseqs;
 my @items;
-my $start
-my $end
-my $qlen
-my $trinityseqid
+my $start;
+my $end;
+my $qlen;
+my $trinityseqid;
 # open the blast file first and extract the sequence IDs of all things with hit results
 open (BLAST, "< $blastfile") or die "$!\n";
 while(defined(my $l = <IN>)){
