@@ -55,7 +55,6 @@ while(defined(my $l = <IN>)){
 	chomp $l;
 	if ($l =~ /^>/) {
 		if ($lastID ne "") {
-      $lastID =~ s/^>//;
       if (exists $badseqs{$lastID}) {
 				print BAD "$lastID\n";
 				print BAD "$seqs{$lastID}";
@@ -66,6 +65,7 @@ while(defined(my $l = <IN>)){
       }
 		}
 		$lastID = $l;
+    $lastID =~ s/^>//;
     $seqs{$lastID} = "";
 	}
 	else {
