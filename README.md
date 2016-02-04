@@ -55,3 +55,8 @@ nohup perl ./remove_refseqs.pl ../scripts/trinity_CL_119_R1/Trinity.fasta ./CL_1
 
 ### translate blast remaining sequences to SEED
 
+This is done with blastx, which translates all reading frames of the remaining assembled sequences to the SEED database for annotation.
+
+```
+nohup ./blastx_to_SEED.sh > blastx_to_SEED_CL_119_R1_nohup.out 2>&1
+```
