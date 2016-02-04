@@ -51,6 +51,8 @@ nohup ./assembly_test_blast.sh > CL_119_R1_blast_to_refseqs_nohup.out 2>&1&
 
 #### remove the matches to refseq
 
+This perl script takes in four parameters: the path of the input fasta file, and the path of the output fasta file, the path of the blast file with the sequences you want to remove, and the path of the file you want to put the removed sequences in.
+
 ```
 nohup perl ./remove_refseqs.pl ../scripts/trinity_CL_119_R1/Trinity.fasta ./CL_119_R1_assembled_no_refseqs.fa CL_119_R1_blast_to_refseqs.out CL_119_R1_assembled_matched_refseqs.fa > remove_refseqs_CL_119_R1_nohup.out 2>&1&
 ```
