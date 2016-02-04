@@ -60,7 +60,7 @@ while(defined(my $l = <IN>)){
 				print BAD "$seqs{$lastID}";
       }
       else {
-				print OUT "$lastID\n";
+				print OUT ">$lastID\n";
 				print OUT "$seqs{$lastID}";
       }
 		}
