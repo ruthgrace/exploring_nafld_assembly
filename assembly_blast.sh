@@ -2,10 +2,11 @@ for d in ../scripts/trinity_* ; do
   if [ $d != "../scripts/trinity_CL_119_R1" ]; then
     trinityFasta="$d/Trinity.fasta";
     sample=${d:19};
-    refseqBlastOut=$sample"_blast_to_refseqs.out";
-    noRefseqs=$sample"_assembled_no_refseqs.fa";
-    matchedRefseqs=$sample"_assembled_matched_refseqs.fa";
-    seedBlast=$sample"_SEED_blast.out";
+    mkdir $sample;
+    refseqBlastOut=$sample"/"$sample"_blast_to_refseqs.out";
+    noRefseqs=$sample"/"$sample"_assembled_no_refseqs.fa";
+    matchedRefseqs=$sample"/"$sample"_assembled_matched_refseqs.fa";
+    seedBlast=$sample"/"$sample"_SEED_blast.out";
     # get rid of spaces in sequence identifiers
     sed -i.backup '/^>/ s/ /_/g' $trinityFasta;
     # blast with refseqs
