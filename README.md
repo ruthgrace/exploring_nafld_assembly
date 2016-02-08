@@ -67,9 +67,9 @@ nohup ./blastx_to_SEED.sh > blastx_to_SEED_CL_119_R1_nohup.out 2>&1&
 
 ### All samples
 
-I wrote a batch script to do the steps outlined above for all the samples:
+I wrote a batch script to do the steps outlined above for all the samples. In the script I am using 40 threads, so I've set the niceness to be 1 more than normal in case other people need to run things:
 
 ```
-nohup ./assembly_blast.sh > assembly_blast_nohup.out 2>&1&
+nohup nice -n 1 ./assembly_blast.sh > assembly_blast_nohup.out 2>&1&
 ```
 
