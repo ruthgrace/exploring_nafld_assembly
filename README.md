@@ -73,7 +73,7 @@ I wrote a batch script to do the steps outlined above for all the samples. In th
 nohup nice -n 1 ./assembly_blast.sh > assembly_blast_nohup.out 2>&1&
 ```
 
-## Create bowtie index
+## Create fasta file for bowtie index
 
 Add sample names to all assembled refseq ids:
 
@@ -87,12 +87,37 @@ Concatenate all assembled refseqs:
 cat */*_assembled_no_refseqs_with_sample_name.fa > all_assembled_no_refseqs_with_sample_name.fa
 ```
 
-Make Bowtie2 index:
+## Get seed hierarchy for all samples
 
 ```
-nohup bowtie2-build -f all_assembled_no_refseqs_with_sample_name.fa assembled_nafld &
+nohup get_all_seed_hier.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > get_all_seed_hier_nohup.out 2>&1&
 ```
 
 ## Map reads to assembled stuff
 
+Run mapping:
+
+```
+nohup mapping.sh > mapping_nohup.out 2>&1&
+```
+
+Get counts:
+
+```
+nohup count_table_gen.sh > count_table_gen_nohup.out 2>&1&
+```
+
+## Generate count table for reads mapping to assembled annotated seqs
+
+```
+nohup perl ../../scripts/get_annotated_counts.pl $seedhier /Volumes/data/ruth/nafld_assembly/assembly_mapping get_annotated_counts_output.txt > get_annotated_counts_nohup.out 2>&1&
+```
+
+Add refseq lengths:
+
+```
+nohup perl add_assembled_length.pl get_annotated_counts_output.txt annotated_assembly_counts_with_seq_length.txt > add_assembled_length_nohup.out 2>&1&
+```
+
+## Amalgamate count tables to count tables for reads mapping to the library
 
