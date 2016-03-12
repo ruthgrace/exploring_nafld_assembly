@@ -73,3 +73,26 @@ I wrote a batch script to do the steps outlined above for all the samples. In th
 nohup nice -n 1 ./assembly_blast.sh > assembly_blast_nohup.out 2>&1&
 ```
 
+## Create bowtie index
+
+Add sample names to all assembled refseq ids:
+
+```
+nohup perl add_all_samples_name_to_no_refseq.pl > add_all_samples_name_to_no_refseq_nohup.out 2>&1&
+```
+
+Concatenate all assembled refseqs:
+
+```
+cat */*_assembled_no_refseqs_with_sample_name.fa > all_assembled_no_refseqs_with_sample_name.fa
+```
+
+Make Bowtie2 index:
+
+```
+nohup bowtie2-build -f all_assembled_no_refseqs_with_sample_name.fa assembled_nafld &
+```
+
+## Map reads to assembled stuff
+
+
