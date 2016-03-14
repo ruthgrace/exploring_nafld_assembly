@@ -137,4 +137,6 @@ Rscript remove_zeros.r all_counts_with_seq_length.txt all_counts_with_seq_length
 
 ## Aitchison transform
 
+Run `run_aldex_for_stripcharts.r` line by line in R (for some reason it won't run all in one go but works fine line by line. You'll have to run the Aitchison stuff line by line too.)
+
 ## Differential abundance analysis
