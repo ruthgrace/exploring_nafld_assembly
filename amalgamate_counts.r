@@ -1,7 +1,6 @@
 #!/usr/bin/env Rscript
 
 args <- commandArgs(trailingOnly = TRUE)
-args <- c("a.txt", "b.txt", "ab.txt")
 
 print(args)
 if (length(args) != 3) {
