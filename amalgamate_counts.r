@@ -14,6 +14,15 @@ if (length(args) != 3) {
   a.b <- samples.a[which(!(samples.a %in% samples.b))]
   b.a <- samples.b[which(!(samples.b %in% samples.a))]
 
+  if (length(a.b) > 0) {
+    print("Aborted. Samples in first count table but not second:")
+    print(a.b)
+  }
+  if (length(b.a) > 0) {
+    print("Aborted. Samples in second count table but not first:")
+    print(b.a)
+  }
+
   if (length(a.b) == 0 && length(b.a) == 0) {
     amalgamated <- data.frame(matrix(nrow=(nrow(counts.a)+nrow(counts.b)),ncol=ncol(counts.a)))
     colnames(amalgamated) <- colnames(counts.a)
