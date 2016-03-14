@@ -121,3 +121,14 @@ nohup perl add_assembled_length.pl get_annotated_counts_output.txt annotated_ass
 
 ## Amalgamate count tables to count tables for reads mapping to the library
 
+This script concatenates the count tables, ensuring that the samples are in the same order.
+
+```
+Rscript amalgamate_counts.r annotated_assembly_counts_with_seq_length.txt annotated_counts_with_refseq_length.txt all_counts_with_seq_length.txt
+```
+
+## Remove zeros
+
+## Aitchison transform
+
+## Differential abundance analysis
