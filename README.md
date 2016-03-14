@@ -135,8 +135,14 @@ Remove all features with zero counts for all samples
 Rscript remove_zeros.r all_counts_with_seq_length.txt all_counts_with_seq_length_zeros_removed.txt
 ```
 
-## Aitchison transform
+## Aitchison transform + differential abundance analysis
 
 Run `run_aldex_for_stripcharts.r` line by line in R (for some reason it won't run all in one go but works fine line by line. You'll have to run the Aitchison stuff line by line too.)
 
-## Differential abundance analysis
+The Aitchison transform script amalgamates counts to unique subsys hierarchies. The ALDEx (Anova-Like Differential Expression) analysis calculates the variance within groups for each feature and the variance between groups for each feature to arrive upon an effect size.
+
+After running this script, you will get some files that are output in intermediate stages (so that you can read them in and start the script from the middle if necessary), plus `ALDEx_all_hierarchies_output.pdf`, which has a difference within vs. difference between plot for subsys4, and `ALDEx_output_for_stripcharts_ordered_by_effect.txt`, which you can examine to see which features had the greatest measured effect, and which you can also feed into the stripchart plots in the next section.
+
+## Stripchart plots
+
+Features can fall into multiple subsys1, subsys2, and subsys3 categories for each subsys4 category, and can be better visualized with stripcharts. Stripcharts can be generated using the `SEED_stripcharts_aldex2_update.R` script.
