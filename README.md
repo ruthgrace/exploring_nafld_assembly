@@ -129,6 +129,12 @@ Rscript amalgamate_counts.r annotated_assembly_counts_with_seq_length.txt annota
 
 ## Remove zeros
 
+Remove all features with zero counts for all samples
+
+```
+Rscript remove_zeros.r all_counts_with_seq_length.txt
+```
+
 ## Aitchison transform
 
 ## Differential abundance analysis
