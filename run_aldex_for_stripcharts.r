@@ -9,18 +9,18 @@ sampleindexes <- c(3:22)
 
 lengthindex <- 2
 
-# outfolder <- "subsys4_counts"
+ outfolder <- "subsys4_counts"
 # outfolder <- "carbohydrates"
- outfolder <- "lipids"
+# outfolder <- "lipids"
 
 nash <- c("CL_166_BL_R2_R1", "CL_169_BL_R1", "CL_139_BL_2_R1", "CL_173_2_R1", "CL_144_2_R1", "CL_177_R1", "CL_160_R1", "CL_165_R1", "CL_119_R1", "CL_141_BL_R2_R1")
 
 healthy <- c("HLD_100_R1", "HLD_102_R1", "HLD_111_2_R1", "HLD_80_R1", "HLD_85_R1", "HLD_28_R1", "HLD_47_R1", "HLD_72_2_R1", "HLD_112_R1", "HLD_23_R1")
 
 # read in fully annotated counts with hierarchies
-# d <- read.table("annotated_counts_with_refseq_length_non_zero_features.txt",sep="\t",header=TRUE,row.names=NULL,quote="",comment.char="")
+ d <- read.table("annotated_counts_with_refseq_length_non_zero_features.txt",sep="\t",header=TRUE,row.names=NULL,quote="",comment.char="")
 # d <- read.table("annotated_carbohydrate_counts_with_refseq_length.txt",sep="\t",header=TRUE,row.names=NULL,quote="",comment.char="")
- d <- read.table("annotated_lipid_counts_with_refseq_length.txt",sep="\t",header=TRUE,row.names=NULL,quote="",comment.char="")
+# d <- read.table("annotated_lipid_counts_with_refseq_length.txt",sep="\t",header=TRUE,row.names=NULL,quote="",comment.char="")
 
 originaldata <- d
 
