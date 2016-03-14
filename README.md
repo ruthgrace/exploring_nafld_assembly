@@ -132,7 +132,7 @@ Rscript amalgamate_counts.r annotated_assembly_counts_with_seq_length.txt annota
 Remove all features with zero counts for all samples
 
 ```
-Rscript remove_zeros.r all_counts_with_seq_length.txt
+Rscript remove_zeros.r all_counts_with_seq_length.txt all_counts_with_seq_length_zeros_removed.txt
 ```
 
 ## Aitchison transform
