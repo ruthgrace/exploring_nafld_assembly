@@ -1,4 +1,5 @@
-for d in ../scripts/trinity_* ; do
+my $d;
+for $d in ../scripts/trinity_* ; do
   trinityFasta="$d/Trinity.fasta";
   sample=${d:19};
   noRefseqs=$sample"/"$sample"_assembled_no_refseqs.fa";
