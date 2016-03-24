@@ -15,10 +15,10 @@ while(defined (my $l = <SEEDHIER>)) {
 	chomp ($l);
 	if ($firstline) {
 		$firstline = 0;
-    print "$l\n";
+    print $l . "\n";
 	}
 	else {
-    print $sample"_"$l"\n";
+    print $sample . "_" . $l . "\n";
 	}
 }
 close SEEDHIER;
