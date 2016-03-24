@@ -78,7 +78,7 @@ nohup nice -n 1 ./assembly_blast.sh > assembly_blast_nohup.out 2>&1&
 Add sample names to all assembled refseq ids:
 
 ```
-nohup ./add_all_samples_name_to_no_refseq.pl > add_all_samples_name_to_no_refseq_nohup.out 2>&1&
+nohup ./add_all_samples_name_to_no_refseq.sh > add_all_samples_name_to_no_refseq_nohup.out 2>&1&
 ```
 
 Concatenate all assembled refseqs:
