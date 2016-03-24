@@ -90,7 +90,7 @@ cat */*_assembled_no_refseqs_with_sample_name.fa > all_assembled_no_refseqs_with
 ## Get seed hierarchy for all samples
 
 ```
-nohup get_all_seed_hier.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > get_all_seed_hier_nohup.out 2>&1&
+nohup ./get_all_seed_hier.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > get_all_seed_hier_nohup.out 2>&1&
 ```
 
 ## Map reads to assembled stuff
