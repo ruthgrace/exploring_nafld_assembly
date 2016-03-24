@@ -15,7 +15,7 @@ while(defined (my $l = <SEQFILE>)) {
 		$fullid = $l;
 		# strip > character
 		$fullid =~ s/^.//;
-    print ">"$sample"_"$fullid"\n";
+    print ">" . $sample . "_" . $fullid .  s"\n";
 	}
   else {
     print "$l\n";
