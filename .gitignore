@@ -3,4 +3,6 @@ CL*
 HLD*
 *nohup.out
 assembly_blast_CL_141_BL_R2_R1.sh
+all_assembled_no_refseqs_with_sample_name.fa
+non_matched_refseqs.txt
 
