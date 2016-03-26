@@ -98,13 +98,13 @@ nohup ./get_all_seed_hier.sh /Volumes/data/ruth/nafld_assembly/assembly_test_bla
 Run mapping:
 
 ```
-nohup mapping.sh > mapping_nohup.out 2>&1&
+nohup ./mapping.sh > mapping_nohup.out 2>&1&
 ```
 
 Get counts:
 
 ```
-nohup count_table_gen.sh > count_table_gen_nohup.out 2>&1&
+nohup ./count_table_gen.sh > count_table_gen_nohup.out 2>&1&
 ```
 
 ## Generate count table for reads mapping to assembled annotated seqs
