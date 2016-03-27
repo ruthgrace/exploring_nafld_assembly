@@ -13,7 +13,7 @@
 
 # All mapping output will be put to WORKING_DIR as SAMPLE_NAME_map/
 #WORKING_DIR=/Volumes/rhamnosucs/twntyfr/map_bac
-WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_mapping
+WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_mapping/
 # Location of the fastq files to ma
 SAMPLE_DIR=/Volumes/data/ruth/nafld_assembly/reads
 # Location of the fasta for the reference index
@@ -68,7 +68,7 @@ for f in $( ls $SAMPLE_DIR ); do
 	
 	echo "# Starting mapping on $SAMPLE : `date`"
 
-	bowtie2 -x $IDX -U $SAMPLE_DIR/$f -S $DIR/$SAMPLE.sam -p 10 -N 1 -D 20 -R 3 -L 20 #2> $DIR/errlog.txt
+	bowtie2 -x $IDX -U $SAMPLE_DIR/$f -S $DIR/$SAMPLE.sam -p 40 -N 1 -D 20 -R 3 -L 20 #2> $DIR/errlog.txt
 
 	echo -e "# Done mapping $SAMPLE : `date`\n"
 
