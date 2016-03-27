@@ -13,7 +13,7 @@
 
 # All mapping output will be put to WORKING_DIR as SAMPLE_NAME_map/
 #WORKING_DIR=/Volumes/rhamnosucs/twntyfr/map_bac
-WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_mapping/
+WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_mapping
 # Location of the fastq files to ma
 SAMPLE_DIR=/Volumes/data/ruth/nafld_assembly/reads
 # Location of the fasta for the reference index
@@ -41,7 +41,7 @@ bowtie2 --version
 cd $WORKING_DIR
 
 # Make reference index
-if [ -e $IDX.1.bt2 ]; then
+if [ -e $IDX.1.bt2 ] || [ -e $IDX.1.bt2l ] ; then
 	echo -e "\n## Index exists : $IDX\n"
 else
 	echo -e "\n## Building index : $IDX\n"
@@ -57,7 +57,7 @@ for f in $( ls $SAMPLE_DIR ); do
 	
 	SAMPLE=${array2[0]}
 	echo "# Working on sample: $SAMPLE"
-	DIR="${OUTPUTFOLDER}${SAMPLE}_map"
+	DIR="${OUTPUTFOLDER}/${SAMPLE}_map"
 	
 	if [ -d $DIR ]; then
 		echo "# Output directory: $DIR exists"
