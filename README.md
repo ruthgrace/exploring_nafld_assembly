@@ -112,6 +112,7 @@ If you mess up getting the counts and need to re run it, run this in your mappin
 ```
 rm */best_hits*
 rm */*_CDS_counts.txt
+rm headers.txt
 ```
 
 ## Generate count table for reads mapping to assembled annotated seqs
