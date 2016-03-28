@@ -1,6 +1,5 @@
-dir="$1";
 
-for d in $dir
+for d in "$1"/*map
 do
   echo $d;
 done
