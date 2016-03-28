@@ -15,7 +15,7 @@ while(defined (my $l = <SEQFILE>)) {
 	chomp ($l);
 	if ($l =~ /^>/) {
 		$fullid = $l;
-    if ($fullid =~ /^(.+)_path*$/) {
+    if ($fullid =~ /(>.+)_path*/) {
       print OUT $1 . "\n";
     }
     else {
