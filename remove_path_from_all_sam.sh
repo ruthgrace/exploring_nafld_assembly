@@ -1,7 +1,6 @@
 dir="$1";
 
-for d in $dir ; do
+for d in .
+do
   echo $d;
-  trinityFasta="$d/Trinity.fasta";
-  sample=${d:19};
 done
