@@ -1,7 +1,4 @@
-my $help = "\tFirst argument is a path to folder with mapped dirs\n";
-
-print $help if !$ARGV[0];exit if !$ARGV[0];
-my $dir = $ARGV[0];
+dir="$1";
 
 for d in $dir ; do
   echo $d;
