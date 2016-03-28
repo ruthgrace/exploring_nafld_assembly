@@ -12,69 +12,68 @@
 #	named: 001A.nonhuman.fastq etc.
 
 # All mapping output will be put to WORKING_DIR as SAMPLE_NAME_map/
-#WORKING_DIR=/Volumes/rhamnosucs/twntyfr/map_bac
-WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_mapping
-# Location of the fastq files to ma
-SAMPLE_DIR=/Volumes/data/ruth/nafld_assembly/reads
+#WORKING_DIR=/Volumes/rhamnosus/twntyfr/map_bac
+WORKING_DIR=/Groups/twntyfr/map_bac
+# Location of the fastq files to map
+SAMPLE_DIR=/Groups/twntyfr/Project_G._GLOOR/nonhuman
 # Location of the fasta for the reference index
-REFSEQS=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/all_assembled_no_refseqs_with_sample_name.fa
-OUTPUTFOLDER=/Volumes/data/ruth/nafld_assembly/assembly_mapping
+REFSEQS=/Groups/twntyfr/map_bac/all_bac_ncRNArm_medianorder_id90.fasta
+
 # Name of your bowtie index. Will output to your working dir
-IDX="/Volumes/data/ruth/nafld_assembly/assembly_index/nafld_assembly_no_refseq"
+IDX="all_bac_ncRNArm_medianorder_id90"
 
-BIN=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/bin
-
+BIN=/Groups/twntyfr/map_bac/bin
 #----------------------------------------------------------------------------
 # Get bowtie version
-# 
-# echo "# Mapper version:"
-# bowtie2 --version
-# 
-# #/Groups/twntyfr/bin/bowtie2-2.1.0/bowtie2-align version 2.1.0
-# #64-bit
-# #Built on ifx5.ebalto.jhmi.edu
-# #Wed Feb 20 11:34:34 EST 2013
-# #Compiler: gcc version 4.2.1 (Apple Inc. build 5666) (dot 3)
-# #Options: -O3 -m64 -msse2 -funroll-loops -g3 
-# #Sizeof {int, long, long long, void*, size_t, off_t}: {4, 8, 8, 8, 8, 8}
-# 
-# # Go to working dir
-# cd $WORKING_DIR
-# 
-# # Make reference index
-# if [ -e $IDX.1.bt2 ]; then
-# 	echo -e "\n## Index exists : $IDX\n"
-# else
-# 	echo -e "\n## Building index : $IDX\n"
-# 	bowtie2-build -f $REFSEQS $IDX > bowtie2-build_log_`date +"%Y-%m-%d_%H%M%S"`.txt
-# fi
-# 
-# 
-# for f in $( ls $SAMPLE_DIR ); do
-# #	echo "#Working on $f"
-# 	#get the sample name. No idea why I have to split twice
-# 	IFS='\.' read -a array <<< $f
-# 	IFS=' ' read -a array2 <<< $array
-# 	
-# 	SAMPLE=${array2[0]}
-# 	echo "# Working on sample: $SAMPLE"
-# 	DIR="${OUTPUTFOLDER}${SAMPLE}_map"
-# 	
-# 	if [ -d $DIR ]; then
-# 		echo "# Output directory: $DIR exists"
-# 	else
-# 		echo "# Making output directory: $DIR"
-# 		mkdir $DIR
-# 	fi
-# 	
-# 	echo "# Starting mapping on $SAMPLE : `date`"
-# 
-# 	bowtie2 -x $IDX -U $SAMPLE_DIR/$f -S $DIR/$SAMPLE.sam -p 10 -N 1 -D 20 -R 3 -L 20 #2> $DIR/errlog.txt
-# 
-# 	echo -e "# Done mapping $SAMPLE : `date`\n"
-# 
-# done
-#     echo -e "\n## All mapping complete\n"
+
+echo "# Mapper version:"
+bowtie2 --version
+
+#/Groups/twntyfr/bin/bowtie2-2.1.0/bowtie2-align version 2.1.0
+#64-bit
+#Built on ifx5.ebalto.jhmi.edu
+#Wed Feb 20 11:34:34 EST 2013
+#Compiler: gcc version 4.2.1 (Apple Inc. build 5666) (dot 3)
+#Options: -O3 -m64 -msse2 -funroll-loops -g3 
+#Sizeof {int, long, long long, void*, size_t, off_t}: {4, 8, 8, 8, 8, 8}
+
+# Go to working dir
+cd $WORKING_DIR
+
+# Make reference index
+if [ -e $IDX.1.bt2 ]; then
+	echo -e "\n## Index exists : $IDX\n"
+else
+	echo -e "\n## Building index : $IDX\n"
+	bowtie2-build -f $REFSEQS $IDX > bowtie2-build_log_`date +"%Y-%m-%d_%H%M%S"`.txt
+fi
+
+
+for f in $( ls $SAMPLE_DIR ); do
+#	echo "#Working on $f"
+	#get the sample name. No idea why I have to split twice
+	IFS='\.' read -a array <<< $f
+	IFS=' ' read -a array2 <<< $array
+	
+	SAMPLE=${array2[0]}
+	echo "# Working on sample: $SAMPLE"
+	DIR="${SAMPLE}_map"
+	
+	if [ -d $DIR ]; then
+		echo "# Output directory: $DIR exists"
+	else
+		echo "# Making output directory: $DIR"
+		mkdir $DIR
+	fi
+	
+	echo "# Starting mapping on $SAMPLE : `date`"
+
+	bowtie2 -x $IDX -U $SAMPLE_DIR/$f -S $DIR/$SAMPLE.sam -p 6 -N 1 -D 20 -R 3 -L 20 #2> $DIR/errlog.txt
+
+	echo -e "# Done mapping $SAMPLE : `date`\n"
+
+done
+    echo -e "\n## All mapping complete\n"
 
 #-------------------------
 # Separate loops for the mapping and the partitioning in case one fails
@@ -89,14 +88,14 @@ IFS=' ' read -a array2 <<< $array
 
 SAMPLE=${array2[0]}
 #	echo "# Working on $SAMPLE"
-	DIR="${OUTPUTFOLDER}/${SAMPLE}_map"
+	DIR="${SAMPLE}_map"
 
     echo "# Making readcounts table for sample: $SAMPLE"
 	
-	if [ -e "${OUTPUTFOLDER}/headers.txt" ] && [ -s "${OUTPUTFOLDER}/headers.txt" ]; then
+	if [ -e headers.txt ] && [ -s headers.txt ]; then
 		echo "# Headers list exists"
 	else
-		grep '^@' $DIR/$SAMPLE.sam > "${OUTPUTFOLDER}/headers.txt"
+		grep '^@' $DIR/$SAMPLE.sam > headers.txt
 	fi
 
 	if [ -e $DIR/best_hits_${SAMPLE}.out ]; then
@@ -118,7 +117,7 @@ SAMPLE=${array2[0]}
         awk -F'\t' 'BEGIN {OFS = "\t"} {s1=$2+$3;print $1,$2,$3,s1}' $DIR/${SAMPLE}_CDS_counts_temp.txt > $DIR/temp.txt
             rm $DIR/${SAMPLE}_CDS_counts_temp.txt
         # Add read length information from headers.txt
-        $BIN/add_CDS_length.pl $WORKING_DIR/headers.txt $DIR/temp.txt > $DIR/${SAMPLE}_CDS_counts.txt
+        $BIN/add_CDS_length.pl headers.txt $DIR/temp.txt > $DIR/${SAMPLE}_CDS_counts.txt
             rm $DIR/temp.txt
     else
         echo "# ${SAMPLE}_CDS_counts.txt already made : `date +"%T"`"
