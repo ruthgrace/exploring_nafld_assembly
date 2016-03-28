@@ -65,7 +65,9 @@ foreach(@union){
 		if (exists ${ $rcount{$_} }[$i]){
 			$rr = ${ $rcount{$_} }[$i];
 		}
-		print "$_\t$i\t$fr\t$rr\n";
+		if (($fr > 0) or ($rr > 0)) {
+			print "$_\t$i\t$fr\t$rr\n";
+		}
 	
 		my %nt; $nt{A}=0;$nt{C}= 0; $nt{G}=0;$nt{T}=0;
 	}
