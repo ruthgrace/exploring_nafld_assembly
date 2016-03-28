@@ -107,6 +107,13 @@ Get counts:
 nohup ./count_table_gen.sh > count_table_gen_nohup.out 2>&1&
 ```
 
+If you mess up getting the counts and need to re run it, run this in your mapping folder first to clean up:
+
+```
+rm */best_hits*
+rm */*_CDS_counts.txt
+```
+
 ## Generate count table for reads mapping to assembled annotated seqs
 
 ```
