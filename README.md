@@ -87,6 +87,14 @@ Concatenate all assembled refseqs:
 cat */*_assembled_no_refseqs_with_sample_name.fa > all_assembled_no_refseqs_with_sample_name.fa
 ```
 
+I realized that I had some super long sequence IDs, so I removed everything `_path` and after in the sequence IDs in the reference library `all_assembled_no_refseqs_with_sample_name.fa`, the mapping data `$sample"/"$sample".sam"`, and the annotation `$sample"/"$sample"_SEED_blast.out"`.
+
+```
+nohup perl remove_path_from_fasta.pl all_assembled_no_refseqs_with_sample_name.fa > remove_path_from_fasta_nohup.out 2>&1&
+nohup perl remove_path_from_all_sam.pl ./ > remove_path_from_sam_nohup.out 2>&1&
+nohup perl remove_path_from_all_blast_out.pl ./ > remove_path_from_blast_out_nohup.out 2>&1&
+```
+
 ## Get seed hierarchy for all samples
 
 ```
