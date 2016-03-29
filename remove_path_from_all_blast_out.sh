@@ -1,5 +1,5 @@
 
-for D in "$1"/*map
+for D in "$1"/*
 do
   if [ -d "${D}" ]; then
     sample=${D##*/};
