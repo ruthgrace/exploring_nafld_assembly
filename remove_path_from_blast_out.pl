@@ -13,7 +13,7 @@ open (SAMFILE, "< $sam") or die "Could not open $sam\n";
 open (OUT, "> $output") or die "Could not open $output\n";
 while(defined (my $l = <SAMFILE>)) {
 	chomp ($l);
-  if ($l =~ /(@.+)_path[^\t]+(\t.*)$/) {
+  if ($l =~ /(TRINITY.+)_path[^\t]+(\t.*)$/) {
     print OUT $1 . $2 . "\n";
   }
   else {
