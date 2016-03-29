@@ -88,43 +88,59 @@ IFS='\.' read -a array <<< $f
 IFS=' ' read -a array2 <<< $array
 
 SAMPLE=${array2[0]}
-#	echo "# Working on $SAMPLE"
-	DIR="${OUTPUTFOLDER}/${SAMPLE}_map"
+	echo "# Working on $SAMPLE"
 
-    echo "# Making readcounts table for sample: $SAMPLE"
-	
-	if [ -e "${OUTPUTFOLDER}/headers.txt" ] && [ -s "${OUTPUTFOLDER}/headers.txt" ]; then
-		echo "# Headers list exists"
-	else
-		grep '^@' $DIR/$SAMPLE.sam > "${OUTPUTFOLDER}/headers.txt"
-	fi
 
-	if [ -e $DIR/best_hits_${SAMPLE}.out ]; then
-		echo "# Read partitioning already complete"
-	else
-		echo "# Partitioning the reads by genomic position : `date +"%T"`"
-#JM		# This prints every single reference (from headers.txt) and counts the fwd and rev reads mapped
-#JM		# Probably don't need this. We just need number of reads/ref that are MAPPED
-		$BIN/count_reads_SAM.pl $DIR/$SAMPLE.sam > $DIR/best_hits_${SAMPLE}.out
-	fi
-	
-		echo "# Making read count table : `date +"%T"`"
 
-    if [ ! -e $DIR/${SAMPLE}_CDS_counts.txt ]; then
-        #Get read count files per gene
-        $BIN/count_reads_per_CDS.pl $DIR/best_hits_${SAMPLE}.out > $DIR/${SAMPLE}_CDS_counts_temp.txt
-            rm $DIR/best_hits_${SAMPLE}.out
-        # Sum up fwd and rev into total reads
-        awk -F'\t' 'BEGIN {OFS = "\t"} {s1=$2+$3;print $1,$2,$3,s1}' $DIR/${SAMPLE}_CDS_counts_temp.txt > $DIR/temp.txt
-            rm $DIR/${SAMPLE}_CDS_counts_temp.txt
-        # Add read length information from headers.txt
-        $BIN/add_CDS_length.pl $WORKING_DIR/headers.txt $DIR/temp.txt > $DIR/${SAMPLE}_CDS_counts.txt
-            rm $DIR/temp.txt
-    else
-        echo "# ${SAMPLE}_CDS_counts.txt already made : `date +"%T"`"
-    fi
 
-		echo -e "# Read count table for $SAMPLE complete : `date`\n"
+
+
+
+
+
+# 	DIR="${OUTPUTFOLDER}/${SAMPLE}_map"
+# 
+#     echo "# Making readcounts table for sample: $SAMPLE"
+# 	
+# 	if [ -e "${OUTPUTFOLDER}/headers.txt" ] && [ -s "${OUTPUTFOLDER}/headers.txt" ]; then
+# 		echo "# Headers list exists"
+# 	else
+# 		grep '^@' $DIR/$SAMPLE.sam > "${OUTPUTFOLDER}/headers.txt"
+# 	fi
+# 
+# 	if [ -e $DIR/best_hits_${SAMPLE}.out ]; then
+# 		echo "# Read partitioning already complete"
+# 	else
+# 		echo "# Partitioning the reads by genomic position : `date +"%T"`"
+# #JM		# This prints every single reference (from headers.txt) and counts the fwd and rev reads mapped
+# #JM		# Probably don't need this. We just need number of reads/ref that are MAPPED
+# 		$BIN/count_reads_SAM.pl $DIR/$SAMPLE.sam > $DIR/best_hits_${SAMPLE}.out
+# 	fi
+# 	
+# 		echo "# Making read count table : `date +"%T"`"
+# 
+#     if [ ! -e $DIR/${SAMPLE}_CDS_counts.txt ]; then
+#         #Get read count files per gene
+#         $BIN/count_reads_per_CDS.pl $DIR/best_hits_${SAMPLE}.out > $DIR/${SAMPLE}_CDS_counts_temp.txt
+#             rm $DIR/best_hits_${SAMPLE}.out
+#         # Sum up fwd and rev into total reads
+#         awk -F'\t' 'BEGIN {OFS = "\t"} {s1=$2+$3;print $1,$2,$3,s1}' $DIR/${SAMPLE}_CDS_counts_temp.txt > $DIR/temp.txt
+#             rm $DIR/${SAMPLE}_CDS_counts_temp.txt
+#         # Add read length information from headers.txt
+#         $BIN/add_CDS_length.pl $WORKING_DIR/headers.txt $DIR/temp.txt > $DIR/${SAMPLE}_CDS_counts.txt
+#             rm $DIR/temp.txt
+#     else
+#         echo "# ${SAMPLE}_CDS_counts.txt already made : `date +"%T"`"
+#     fi
+# 
+# 		echo -e "# Read count table for $SAMPLE complete : `date`\n"
+		
+		
+		
+		
+		
+		
+		
 done
         echo "## done ALL!"
 
