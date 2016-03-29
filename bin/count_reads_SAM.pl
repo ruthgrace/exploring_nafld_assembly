@@ -65,7 +65,8 @@ foreach(@union){
 		if (exists ${ $rcount{$_} }[$i]){
 			$rr = ${ $rcount{$_} }[$i];
 		}
-		if (($fr > 0) or ($rr > 0)) {
+		print "forward reads: " . $fr . " revers reads: " . $rr;
+		if ($fr > 0 or $rr > 0) {
 			print "$_\t$i\t$fr\t$rr\n";
 		}
 	
