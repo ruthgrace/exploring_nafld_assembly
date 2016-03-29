@@ -87,11 +87,10 @@ Concatenate all assembled refseqs:
 cat */*_assembled_no_refseqs_with_sample_name.fa > all_assembled_no_refseqs_with_sample_name.fa
 ```
 
-I realized that I had some super long sequence IDs, so I removed everything `_path` and after in the sequence IDs in the reference library `all_assembled_no_refseqs_with_sample_name.fa`, the mapping data `$sample"/"$sample".sam"`, and the annotation `$sample"/"$sample"_SEED_blast.out"`.
+I realized that I had some super long sequence IDs, so I removed everything `_path` and after in the sequence IDs in the reference library `all_assembled_no_refseqs_with_sample_name.fa` and the annotation `$sample"/"$sample"_SEED_blast.out"`. I also had to clean up the mapping data with `./remove_path_from_all_sam.sh` because I had already done the mapping when I decided to change the seq ids.
 
 ```
 nohup perl remove_path_from_fasta.pl all_assembled_no_refseqs_with_sample_name.fa all_assembled_no_refseqs_with_sample_name_no_path.fa > remove_path_from_fasta_nohup.out 2>&1&
-nohup ./remove_path_from_all_sam.sh /Volumes/data/ruth/nafld_assembly/assembly_mapping > remove_path_from_all_sam_nohup.out 2>&1&
 nohup ./remove_path_from_all_blast_out.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > remove_path_from_blast_out_nohup.out 2>&1&
 ```
 
