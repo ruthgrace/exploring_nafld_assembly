@@ -91,7 +91,7 @@ I realized that I had some super long sequence IDs, so I removed everything `_pa
 
 ```
 nohup perl remove_path_from_fasta.pl all_assembled_no_refseqs_with_sample_name.fa all_assembled_no_refseqs_with_sample_name_no_path.fa > remove_path_from_fasta_nohup.out 2>&1&
-nohup ./remove_path_from_all_sam.sh ./ > remove_path_from_all_sam_nohup.out 2>&1&
+nohup ./remove_path_from_all_sam.sh /Volumes/data/ruth/nafld_assembly/assembly_mapping > remove_path_from_all_sam_nohup.out 2>&1&
 nohup perl remove_path_from_all_blast_out.pl ./ > remove_path_from_blast_out_nohup.out 2>&1&
 ```
 
