@@ -51,7 +51,6 @@ foreach(@fids){ $union{$_} = ""; }
 foreach(@rids){ $union{$_} = ""; }
 my @union = sort(keys(%union));
 
-
 foreach(@union){
 	my $size = 0;
 	$size = @{ $fcount{$_} } if exists $fcount{$_} ;
@@ -65,7 +64,6 @@ foreach(@union){
 		if (exists ${ $rcount{$_} }[$i]){
 			$rr = ${ $rcount{$_} }[$i];
 		}
-		print "forward reads: " . $fr . " revers reads: " . $rr;
 		if ($fr > 0 or $rr > 0) {
 			print "$_\t$i\t$fr\t$rr\n";
 		}
