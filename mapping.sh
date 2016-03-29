@@ -49,14 +49,13 @@ else
 fi
 
 
-for f in HLD_80_R1 HLD_85_R1; do
+for f in $( ls $SAMPLE_DIR ); do
 #	echo "#Working on $f"
 	#get the sample name. No idea why I have to split twice
-#####	IFS='\.' read -a array <<< $f
-#####	IFS=' ' read -a array2 <<< $array
+	IFS='\.' read -a array <<< $f
+	IFS=' ' read -a array2 <<< $array
 	
-#####	SAMPLE=${array2[0]}
-	SAMPLE=$f;
+	SAMPLE=${array2[0]}
 	echo "# Working on sample: $SAMPLE"
 	DIR="${OUTPUTFOLDER}/${SAMPLE}_map"
 	
