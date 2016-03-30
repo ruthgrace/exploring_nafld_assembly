@@ -3,7 +3,7 @@
 options(error=recover)
 
 library(ALDEx2)
-source("AitchisonTransform.r")
+source("/Volumes/data/ruth/scripts/AitchisonTransform.r")
 
 sampleindexes <- c(3:22)
 
@@ -78,14 +78,14 @@ write.table(d.transform.in,file=paste(outfolder,"AitchisonTransform_input_for_st
 d.transformed <- aitchison.transform.reads(filename=paste(outfolder,"AitchisonTransform_input_for_stripcharts_merged_subsys.txt",sep="/"),rounded=TRUE, subjects = 20, firstsubjectindex = 3, lastsubjectindex = 22, groupindex = 23,lengthindex=2,outputfolder="subsys4_counts")
 
 ### for some reason the aitchison transform method sometimes refuses to run unless you manually run it line by line. here are the relevant input params from the previous line
-# filename = paste(outfolder,"AitchisonTransform_input_for_stripcharts_merged_subsys.txt",sep="/")
-# rounded = TRUE
-# subjects = 20
-# firstsubjectindex = 3
-# lastsubjectindex = 22
-# groupindex = 23
-# lengthindex=2
-# outputfolder=outfolder
+ filename = paste(outfolder,"AitchisonTransform_input_for_stripcharts_merged_subsys.txt",sep="/")
+ rounded = TRUE
+ subjects = 20
+ firstsubjectindex = 3
+ lastsubjectindex = 22
+ groupindex = 23
+ lengthindex=2
+ outputfolder=outfolder
 
 ### the aldex input is already output by aitchison.transform function
 # write.table(d.aggregate,file=paste(outfolder, "ALDEx_input_for_stripcharts_merged_subsys.txt",sep="/"),,sep="\t",quote=FALSE)
