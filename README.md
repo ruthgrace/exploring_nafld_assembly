@@ -124,8 +124,21 @@ rm headers.txt
 
 ## Generate count table for reads mapping to assembled annotated seqs
 
+Put all `$sample/$sample_get_seed_hier_output_with_sample_name.txt` into same file:
+
 ```
-nohup perl ../../scripts/get_annotated_counts.pl $seedhier /Volumes/data/ruth/nafld_assembly/assembly_mapping get_annotated_counts_output.txt > get_annotated_counts_nohup.out 2>&1&
+nohup cat */*_get_seed_hier_output_with_sample_name.txt > all_seed_hier_output_with_sample_name.txt 2>&1&
+```
+
+Manually remove the following lines throughout `all_seed_hier_output_with_sample_name.txt`:
+
+```
+nohup: ignoring input
+refseq_id       subsys4 subsys1 subsys2 subsys3
+```
+
+```
+nohup perl ../../scripts/get_annotated_counts.pl all_seed_hier_output_with_sample_name.txt /Volumes/data/ruth/nafld_assembly/assembly_mapping get_annotated_counts_output.txt > get_annotated_counts_nohup.out 2>&1&
 ```
 
 Add refseq lengths:
