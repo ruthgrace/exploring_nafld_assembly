@@ -160,7 +160,7 @@ nohup Rscript amalgamate_counts.r annotated_assembly_counts_with_seq_length.txt 
 Remove all features with zero counts for all samples
 
 ```
-Rscript remove_zeros.r all_counts_with_seq_length.txt all_counts_with_seq_length_zeros_removed.txt
+nohup Rscript remove_zeros.r all_counts_with_seq_length.txt all_counts_with_seq_length_zeros_removed.txt > remove_zeros_nohup.out 2>&1&
 ```
 
 ## Aitchison transform + differential abundance analysis
