@@ -24,7 +24,7 @@ while(defined (my $l = <COUNTFILE>)) {
 	else {
 		@countlineitems = split(/\t/, $l, 2);
 		if (@countlineitems == 2) {
-      if ($countlineitems[0] =~ m/_len=(\d+)_/g) {
+      if ($countlineitems[0] =~ m/_len=(\d+)$/g) {
         $seqlength = $1;
         print OUTFILE "$countlineitems[0]\t$seqlengths{$id}\t$countlineitems[1]\n";
       }
