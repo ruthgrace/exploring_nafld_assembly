@@ -152,7 +152,7 @@ nohup perl add_assembled_length.pl get_annotated_counts_output.txt annotated_ass
 This script concatenates the count tables, ensuring that the samples are in the same order.
 
 ```
-Rscript amalgamate_counts.r annotated_assembly_counts_with_seq_length.txt annotated_counts_with_refseq_length.txt all_counts_with_seq_length.txt
+nohup Rscript amalgamate_counts.r annotated_assembly_counts_with_seq_length.txt /Volumes/data/ruth/scripts/annotated_counts_with_refseq_length.txt all_counts_with_seq_length.txt > amalgamate_counts_nohup.out 2>&1&
 ```
 
 ## Remove zeros
