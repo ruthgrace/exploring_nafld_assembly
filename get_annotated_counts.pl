@@ -56,12 +56,14 @@ my %fullIDs;
 my %counts;
 foreach my $mappedSample (@mappedSamples) {
 	$sample = $mappedSample;
-	print "sample: " . $sample . "\n";
+	print "sample dir: " . $sample . "\n";
 	if (index($sample, ".txt") == -1) {
 		$sample =~ s/\/$//; # remove trailing slash
 		$sample = (split(/\//,$sample))[-1];
 		$sample =~ s/_map$//;
+		print "sample: " . $sample . "\n";
 		$countFile = "${mappedSample}/${sample}_CDS_counts.txt";
+		print "count file: " . $countFile . "\n";
 		%fullIDs = ();
 		%counts = ();
 		open (COUNTS, "< $countFile") or die "Could not open $countFile\n";
@@ -72,11 +74,9 @@ foreach my $mappedSample (@mappedSamples) {
 				$firstline = 0;
 			}
 			elsif (length($l)>0) {
-				$id = substr($l, 0, index($l, '_'));
-				if (!exists($fullIDs{$id})) {
-					$fullIDs{$id} = ( split('\t', $l ))[0];
-				}
+				$id = ( split('\t', $l ))[0];
 				$counts{$id} = ( split('\t', $l ))[ -1 ];
+				print "adding id " . $id . " with count " . $counts{$id} . "\n";
 			}
 		}
 		close COUNTS;
@@ -99,11 +99,5 @@ open(OUT, '>', $outfile) or die "Could not open file '$outfile' $!";
 unshift @header, "refseq";
 print OUT join("\t", @header), "\n";
 for my $key (keys %annotatedSeqs) {
-	if (exists($fullIDs{$key})) {
-		print OUT $fullIDs{$key};
-	}
-	else {
-		print OUT $key;
-	}
-	print OUT "\t$annotatedSeqs{$key}\n";
+	print OUT $key . "\t" . $annotatedSeqs{$key} . "\n";
 }
