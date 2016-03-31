@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+library(stringr)
+
 d <- read.table("all_counts_with_seq_length_zeros_removed.txt",sep="\t",quote="",comment.char="",header=TRUE)
 
 carbs <- d[which(d$subsys1 == "Carbohydrates"),]
@@ -78,8 +80,16 @@ xlabs.col=c(rep("red",10),rep("black",10)),
 expand=0.8,var.axes=FALSE, scale=1, main="Carbohydrate functions biplot")
 barplot(carbs.pcx$sdev^2/mvar(carbs.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
+#pca only, no biplot
+mylabels <- str_extract(rownames(carbs.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(carbs.pcx$x[,1],carbs.pcx$x[,2],col="white",xlim=c(min(carbs.pcx$x[,1])-10,max(carbs.pcx$x[,1])+10),ylim=c(min(carbs.pcx$x[,2]) - 10, max(carbs.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(carbs.pcx$sdev[1]^2)/mvar(carbs.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(carbs.pcx$sdev[2]^2)/mvar(carbs.clr),3), sep=""),
+,main="Principal Components Analysis\nCarbohydrate subset")
+text(carbs.pcx$x[,1],carbs.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(lipids.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
 xlab=paste("PC1 ", round (sum(lipids.pcx$sdev[1]^2)/mvar(lipids.clr),3), sep=""),
@@ -87,6 +97,15 @@ ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep="")
 xlabs.col=c(rep("red",10),rep("black",10)),
 expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
 barplot(lipids.pcx$sdev^2/mvar(lipids.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
+# technically 
+mylabels <- str_extract(rownames(lipids.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(lipids.pcx$x[,1],lipids.pcx$x[,2],col="white",xlim=c(min(lipids.pcx$x[,1])-10,max(lipids.pcx$x[,1])+10),ylim=c(min(lipids.pcx$x[,2]) - 10, max(lipids.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(lipids.pcx$sdev[1]^2)/mvar(lipids.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep=""),
+,main="Principal Components Analysis\nLipid subset")
+text(lipids.pcx$x[,1],lipids.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
 dev.off()
 
