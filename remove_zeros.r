@@ -2,6 +2,8 @@
 
 args <- commandArgs(trailingOnly = TRUE)
 
+# args <- c("annotated_assembly_counts_with_seq_length.txt", "/Volumes/data/ruth/scripts/annotated_counts_with_refseq_length.txt", "all_counts_with_seq_length.txt")
+
 print(args)
 if (length(args) != 2) {
   print("This script takes two arguments: the count file path, and the file path of the counts with all-zero features removed. The first two columns of the count table should be refseqid and length, and the last four should be subsys4, subsys1, subsys2, and subsys3. In the middle should be all the counts per sample.")
