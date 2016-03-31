@@ -51,7 +51,6 @@ while(defined (my $l = <REFFILE>)) {
 		$id =~ s/^.//;
     if ($id ne "") {
       $seqs{$id} = $seq;
-			print "saving id " . $id . " seq " . $seq . "\n";
     }
     $seq = "";
 	}
@@ -67,9 +66,11 @@ while(defined (my $l = <COUNTFILE>)) {
 	chomp ($l);
   if ($l =~ /^([^\t]+)\t/) {
     $id = $1;
+		print "id: " . $id . "\n";
     if (exists $seqs{$id}) {
       print OUTFILE ">" . $id . "\n";
       print OUTFILE $seqs{$id} . "\n";
+			print "found id in seqs\n";
     }
     else {
       %seqs = %aa_seqs;
