@@ -126,11 +126,28 @@ aldex.plot(x)
 dev.off()
 
 ### CARB AND LIPID ANALYSIS
+
+# make sure you make folders named carbohydrates and lipids inside your outfolder prior to running this
+
 d <- read.table("subsys4_counts/ALDEx_output_for_stripcharts_ordered_by_effect.txt",sep="\t",header=TRUE,quote="",comment.char="")
 carbs <- d[which(d$subsys1 == "Carbohydrates"),]
 lipids <- d[which(d$subsys1 == "Fatty Acids, Lipids, and Isoprenoids"),]
 write.table(carbs,file=paste(outfolder, "ALDEx_output_for_stripcharts_carbs_only.txt",sep="/"),sep="\t",quote=FALSE,row.names=FALSE)
 write.table(lipids,file=paste(outfolder, "ALDEx_output_for_stripcharts_lipids_only.txt",sep="/"),sep="\t",quote=FALSE,row.names=FALSE)
+
+carbs.plot.data <- carbs[,c(5:ncol(carbs))]
+rownames(carbs.plot.data) <- carbs$subsys4
+lipids.plot.data <- lipids[,c(5:ncol(lipids))]
+rownames(lipids.plot.data) <- lipids$subsys4
+
+pdf(paste(outfolder,"carbohydrates","ALDEx_subsys4.pdf",sep="/"))
+aldex.plot(carbs.plot.data)
+dev.off()
+
+pdf(paste(outfolder,"lipids","ALDEx_subsys4.pdf",sep="/"))
+aldex.plot(carbs.plot.data)
+dev.off()
+
 
 ### 1000 MONTE CARLO REPLICATES IN ALDEX
 

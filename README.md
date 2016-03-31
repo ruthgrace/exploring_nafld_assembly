@@ -175,6 +175,12 @@ After running this script, you will get some files that are output in intermedia
 
 Features can fall into multiple subsys1, subsys2, and subsys3 categories for each subsys4 category, and can be better visualized with stripcharts. Stripcharts can be generated using the `SEED_stripcharts_aldex2_update.R` script.
 
+## Carb Lipid analysis
+
+Code has been inserted in the `run_aldex_for_stripcharts.r` and `SEED_stripcharts_aldex2_update.R` scripts to run analysis on a carb only or lipid only subset (based on the subsys4 category). This script makes PCA biplots.
+
+`Rscript carb_lipid_pca_plots.r`
+
 ## Annotate reference library sequences that matched at least one read with KEGG
 
 This is really annoying because the assembled reference library is in nucleotides and the constructed reference library is in amino acid residues. This perl script extracts all the reference sequences that matched at least one read (in `all_counts_with_seq_length_zeros_removed.txt`), from the assembled library `all_assembled_no_refseqs_with_sample_name.fa` and the constructed library `/Volumes/data/ruth/refseqs/all_genus_orfs_clustered_at_99_unique.fa`, and then puts the DNA reference sequences into `assembled_library_for_kegg.fa` and the amino acid reference sequences into `constructed_library_for_kegg.faa`. This is a super hacky and non reuseable script, but you can use just half of it if you only have one reference library.
