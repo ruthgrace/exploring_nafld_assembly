@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
-
+library(zCompositions)
+library(compositions)
+library(ALDEx2)
 library(stringr)
 
 d <- read.table("all_counts_with_seq_length_zeros_removed.txt",sep="\t",quote="",comment.char="",header=TRUE)
@@ -9,6 +11,7 @@ lipids <- d[which(d$subsys1 == "Fatty Acids, Lipids, and Isoprenoids"),]
 
 carbs.samples <- carbs[,c(3:(ncol(carbs)-4))]
 lipids.samples <- lipids[,c(3:(ncol(lipids)-4))]
+d.samples <- d[,c(3:(ncol(d)-4))]
 
 # aggregate by subsys4
 grouping <- carbs$subsys4
@@ -21,22 +24,10 @@ lipids.pca.data <- aggregate(lipids.samples,list(grouping),sum)
 rownames(lipids.pca.data) <- lipids.pca.data$Group.1
 lipids.pca.data <- lipids.pca.data[,c(2:ncol(lipids.pca.data))]
 
-
-
-
-
-
-
-
-
-
-
-
-
-library(zCompositions)
-library(compositions)
-library(ALDEx2)
-library(stringr)
+grouping <- d$subsys4
+d.pca.data <- aggregate(d.samples,list(grouping),sum)
+rownames(d.pca.data) <- d.pca.data$Group.1
+d.pca.data <- d.pca.data[,c(2:ncol(d.pca.data))]
 
 groups <- colnames(carbs.pca.data)
 groups[grepl("^H",groups)] <- "nash"
@@ -45,21 +36,27 @@ groups[grepl("^C",groups)] <- "healthy"
 # adjust zeros
 carbs.pca.adj.zero <- t(cmultRepl(t(carbs.pca.data),method="CZM"))
 lipids.pca.adj.zero <- t(cmultRepl(t(lipids.pca.data),method="CZM"))
+d.pca.adj.zero <- t(cmultRepl(t(d.pca.data),method="CZM"))
 
 carbs.pca.adj.zero <- carbs.pca.adj.zero[order(apply(carbs.pca.adj.zero,1,sum),decreasing=TRUE),]
 lipids.pca.adj.zero <- lipids.pca.adj.zero[order(apply(lipids.pca.adj.zero,1,sum),decreasing=TRUE),]
+d.pca.adj.zero <- d.pca.adj.zero[order(apply(d.pca.adj.zero,1,sum),decreasing=TRUE),]
 
 carbs.names <- rownames(carbs.pca.adj.zero)
 lipids.names <- rownames(lipids.pca.adj.zero)
+d.names <- rownames(d.pca.adj.zero)
 
 carbs.prop <- apply(carbs.pca.adj.zero,2,function(x){x/sum(x)})
 lipids.prop <- apply(lipids.pca.adj.zero,2,function(x){x/sum(x)})
+d.prop <- apply(d.pca.adj.zero,2,function(x){x/sum(x)})
 
 carbs.clr <- t(apply(carbs.prop,2,function(x){log(x) - mean(log(x))}))
 lipids.clr <- t(apply(lipids.prop,2,function(x){log(x) - mean(log(x))}))
+d.clr <- t(apply(d.prop,2,function(x){log(x) - mean(log(x))}))
 
 carbs.pcx <- prcomp(carbs.clr)
 lipids.pcx <- prcomp(lipids.clr)
+d.pcx <- prcomp(d.clr)
 
 conds <- data.frame(groups)
 colnames(conds) <- "cond"
@@ -98,7 +95,6 @@ xlabs.col=c(rep("red",10),rep("black",10)),
 expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
 barplot(lipids.pcx$sdev^2/mvar(lipids.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
-# technically 
 mylabels <- str_extract(rownames(lipids.pcx$x),"^[A-Z]+_[0-9]+")
 layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
 plot(lipids.pcx$x[,1],lipids.pcx$x[,2],col="white",xlim=c(min(lipids.pcx$x[,1])-10,max(lipids.pcx$x[,1])+10),ylim=c(min(lipids.pcx$x[,2]) - 10, max(lipids.pcx$x[,2]) + 10),
@@ -106,6 +102,14 @@ xlab=paste("PC1 ", round (sum(lipids.pcx$sdev[1]^2)/mvar(lipids.clr),3), sep="")
 ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep=""),
 ,main="Principal Components Analysis\nLipid subset")
 text(lipids.pcx$x[,1],lipids.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+
+mylabels <- str_extract(rownames(d.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(d.pcx$x[,1],d.pcx$x[,2],col="white",xlim=c(min(d.pcx$x[,1])-10,max(d.pcx$x[,1])+10),ylim=c(min(d.pcx$x[,2]) - 10, max(d.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
+,main="Principal Components Analysis")
+text(d.pcx$x[,1],d.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
 dev.off()
 
