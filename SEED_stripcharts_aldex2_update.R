@@ -57,7 +57,7 @@ make_stripchart <- function(inputfile,outputfolder=".") {
 		n_sig <- unique( data.frame( group=d[[g]], absolute=d[,diff])[ cutoffn , ] )
 		no_sig <- unique( data.frame( group=d[[g]], absolute=d[,diff])[nocut,])
 		
-	pdf(file=paste(outputfolder,"/","subsys",i,".pdf",sep=""))
+	pdf(file=paste(outputfolder,"/","subsys",i,".pdf",sep=""),width=7,height=max(7,length(groups)/4))
 	#	png(file=paste("subsys",i,".png",sep=""), width=9, height=(length(groups) / 5), units="in", res=300)
 	#height=(length(groups) / 5),
 		
