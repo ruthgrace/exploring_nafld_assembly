@@ -71,7 +71,6 @@ while(defined (my $l = <COUNTFILE>)) {
 	else {
 	  if ($l =~ /^([^\t]+)\t/) {
 	    $id = $1;
-			print "id: " . $id . "\n";
 			if (exists $seqs{$id}) {
 	      print OUTFILE ">" . $id . "\n";
 	      print OUTFILE $seqs{$id} . "\n";
