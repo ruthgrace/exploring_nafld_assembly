@@ -50,7 +50,7 @@ while(defined (my $l = <REFFILE>)) {
 		# strip > character
 		$id =~ s/^.//;
     if ($id ne "") {
-      $seqs{$id} = $seq;
+      %aa_seqs{$id} = $seq;
     }
     $seq = "";
 	}
@@ -60,31 +60,33 @@ while(defined (my $l = <REFFILE>)) {
 }
 close REFFILE;
 
+my $first = 1;
 open (COUNTFILE, "< $counts") or die "Could not open $counts\n";
 open (OUTFILE, "> $fa_out") or die "Could not open $fa_out\n";
 while(defined (my $l = <COUNTFILE>)) {
 	chomp ($l);
-  if ($l =~ /^([^\t]+)\t/) {
-    $id = $1;
-		print "id: " . $id . "\n";
-    if (exists $seqs{$id}) {
-      print OUTFILE ">" . $id . "\n";
-      print OUTFILE $seqs{$id} . "\n";
-			print "found id in seqs\n";
-    }
-		else {
-			print "wasn't able to find id :( \n";
-		}
-    # else {
-    #   %seqs = %aa_seqs;
-    #   print "Switched to amino acid reference at " . $l . "\n";
-    #   close OUTFILE;
-    #   open (OUTFILE, "> $faa_out") or die "Could not open $faa_out\n";
-    # }
-  }
-  else {
-    print "Unable to parse " . $l . "\n";
-  }
+	if ($first) {
+		$first = 0; # skip header line
+	}
+	else {
+	  if ($l =~ /^([^\t]+)\t/) {
+	    $id = $1;
+			print "id: " . $id . "\n";
+	    if (exists $seqs{$id}) {
+	      print OUTFILE ">" . $id . "\n";
+	      print OUTFILE $seqs{$id} . "\n";
+	    }
+	    else {
+	      %seqs = %aa_seqs;
+	      print "Switched to amino acid reference at " . $l . "\n";
+	      close OUTFILE;
+	      open (OUTFILE, "> $faa_out") or die "Could not open $faa_out\n";
+	    }
+	  }
+	  else {
+	    print "Unable to parse " . $l . "\n";
+	  }
+	}
 }
 close OUTFILE;
 close COUNTFILE;
