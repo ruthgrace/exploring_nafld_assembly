@@ -63,11 +63,11 @@ make_stripchart <- function(inputfile,outputfolder=".") {
 		
 		par(mar=c(5,20,0.5,0.5), cex.axis=0.8, cex.lab=0.6, las=1)
 	#c(bottom, left, top, right)
-		stripchart(absolute ~ group, data=no_sig, method="jitter", jitter=0.25, pch=20, col=base_col, xlim=xlim, cex=0.8)
+		stripchart(absolute ~ group, data=no_sig, method="jitter", jitter=0.25, pch=20, col=base_col, xlim=xlim, cex=0.5)
 		
 	#Use add=TRUE to overplot
-		stripchart(absolute ~ group, data=n_sig, method="jitter", jitter=0.25, pch=20, col="blue", xlim=xlim, cex=0.8, add=TRUE)
-		stripchart(absolute ~ group, data=bv_sig, method="jitter", jitter=0.25, pch=20, col="red", xlim=xlim, cex=0.8, add=TRUE)
+		stripchart(absolute ~ group, data=n_sig, method="jitter", jitter=0.25, pch=20, col="blue", xlim=xlim, cex=0.5, add=TRUE)
+		stripchart(absolute ~ group, data=bv_sig, method="jitter", jitter=0.25, pch=20, col="red", xlim=xlim, cex=0.5, add=TRUE)
 
 		abline(v=0, col="black", lty=2)
 	#	title(xlab="Median Absolute Difference" ~~Log[2]~~, line=2, cex.lab=0.8)
