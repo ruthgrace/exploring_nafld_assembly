@@ -37,7 +37,6 @@ while(defined (my $l = <ANNOTATIONS>)) {
 			$id = $tempArray[0];
 			$annotation = $tempArray[1];
 			$annotatedSeqs{$id} = $annotation;
-			print "found id " . $id . " with annotation " . $annotation . "\n";
 		}
 		else {
 			print "Unable to parse line $l\n";
@@ -50,13 +49,14 @@ my @header = ('subsys4','subsys1','subsys2','subsys3');
 
 # process samples
 $countsDir =~ s/\/$//;
-my @mappedSamples = glob($countsDir . '/*');
+my @mappedSamples = glob($countsDir . '/*map');
 my $countFile;
 my $sample;
 my %fullIDs;
 my %counts;
 foreach my $mappedSample (@mappedSamples) {
 	$sample = $mappedSample;
+	print "sample: " . $sample . "\n";
 	if (index($sample, ".txt") == -1) {
 		$sample =~ s/\/$//; # remove trailing slash
 		$sample = (split(/\//,$sample))[-1];
