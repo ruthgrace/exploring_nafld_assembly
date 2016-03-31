@@ -82,8 +82,9 @@ while(defined (my $l = <COUNTFILE>)) {
 	      close OUTFILE;
 	      open (OUTFILE, "> $faa_out") or die "Could not open $faa_out\n";
 	    }
+		}
 		else {
-			
+			print "Unable to parse line " . $l . "\n";
 		}
 	}
 }
