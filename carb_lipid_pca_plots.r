@@ -63,6 +63,7 @@ conds <- data.frame(groups)
 colnames(conds) <- "cond"
 
 palette=palette(c(rgb(1,0,0,0.6), rgb(0,0,1,0.6), rgb(0,1,1,0.6)))
+dev.off()
 
 pdf("biplots.pdf")
 
@@ -76,6 +77,8 @@ ylab=paste("PC2 ", round (sum(carbs.pcx$sdev[2]^2)/mvar(carbs.clr),3), sep=""),
 xlabs.col=c(rep("red",10),rep("black",10)),
 expand=0.8,var.axes=FALSE, scale=1, main="Carbohydrate functions biplot")
 barplot(carbs.pcx$sdev^2/mvar(carbs.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
+
 
 coloredBiplot(lipids.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
