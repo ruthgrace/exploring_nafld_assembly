@@ -180,7 +180,7 @@ Features can fall into multiple subsys1, subsys2, and subsys3 categories for eac
 This is really annoying because the assembled reference library is in nucleotides and the constructed reference library is in amino acid residues. This perl script extracts all the reference sequences that matched at least one read (in `all_counts_with_seq_length_zeros_removed.txt`), from the assembled library `all_assembled_no_refseqs_with_sample_name.fa` and the constructed library `/Volumes/data/ruth/refseqs/all_genus_orfs_clustered_at_99_unique.fa`, and then puts the DNA reference sequences into `assembled_library_for_kegg.fa` and the amino acid reference sequences into `constructed_library_for_kegg.faa`. This is a super hacky and non reuseable script, but you can use just half of it if you only have one reference library.
 
 ```
-nohup perl get_seqs_for_kegg.pl all_counts_with_seq_length_zeros_removed.txt all_assembled_no_refseqs_with_sample_name.fa /Volumes/data/ruth/refseqs/all_genus_orfs_clustered_at_99_unique.fa assembled_library_for_kegg.fa constructed_library_for_kegg.faa > get_seqs_for_kegg_nohup.out 2>&1&
+nohup perl get_seqs_for_kegg.pl all_counts_with_seq_length_zeros_removed.txt all_assembled_no_refseqs_with_sample_name_no_path.fa /Volumes/data/ruth/refseqs/all_genus_orfs_clustered_at_99_unique.fa assembled_library_for_kegg.fa constructed_library_for_kegg.faa > get_seqs_for_kegg_nohup.out 2>&1&
 ```
 
 Use the online web tool to run: http://www.genome.jp/tools/kaas/
