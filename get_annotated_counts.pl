@@ -37,6 +37,7 @@ while(defined (my $l = <ANNOTATIONS>)) {
 			$id = $tempArray[0];
 			$annotation = $tempArray[1];
 			$annotatedSeqs{$id} = $annotation;
+			print "found id " . $id . " with annotation " . $annotation . "\n";
 		}
 		else {
 			print "Unable to parse line $l\n";
