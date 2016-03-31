@@ -30,6 +30,7 @@ while(defined (my $l = <REFFILE>)) {
 		$id =~ s/^.//;
     if ($id ne "") {
       $seqs{$id} = $seq;
+			print "saving id " . $id . " seq " . $seq . "\n";
     }
     $seq = "";
 	}
