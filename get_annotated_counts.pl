@@ -56,14 +56,11 @@ my %fullIDs;
 my %counts;
 foreach my $mappedSample (@mappedSamples) {
 	$sample = $mappedSample;
-	print "sample dir: " . $sample . "\n";
 	if (index($sample, ".txt") == -1) {
 		$sample =~ s/\/$//; # remove trailing slash
 		$sample = (split(/\//,$sample))[-1];
 		$sample =~ s/_map$//;
-		print "sample: " . $sample . "\n";
 		$countFile = "${mappedSample}/${sample}_CDS_counts.txt";
-		print "count file: " . $countFile . "\n";
 		%fullIDs = ();
 		%counts = ();
 		open (COUNTS, "< $countFile") or die "Could not open $countFile\n";
@@ -76,7 +73,6 @@ foreach my $mappedSample (@mappedSamples) {
 			elsif (length($l)>0) {
 				$id = ( split('\t', $l ))[0];
 				$counts{$id} = ( split('\t', $l ))[ -1 ];
-				print "adding id " . $id . " with count " . $counts{$id} . "\n";
 			}
 		}
 		close COUNTS;
