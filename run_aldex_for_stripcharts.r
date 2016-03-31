@@ -125,6 +125,14 @@ aldex.plot(x)
 
 dev.off()
 
+### CARB AND LIPID ANALYSIS
+d <- read.table("subsys4_counts/ALDEx_output_for_stripcharts_ordered_by_effect.txt",sep="\t",header=TRUE,quote="",comment.char="")
+carbs <- d[which(d$subsys1 == "Carbohydrates"),]
+lipids <- d[which(d$subsys1 == "Fatty Acids, Lipids, and Isoprenoids"),]
+write.table(carbs,file=paste(outfolder, "ALDEx_output_for_stripcharts_carbs_only.txt",sep="/"),sep="\t",quote=FALSE,row.names=FALSE)
+write.table(lipids,file=paste(outfolder, "ALDEx_output_for_stripcharts_lipids_only.txt",sep="/"),sep="\t",quote=FALSE,row.names=FALSE)
+
+### 1000 MONTE CARLO REPLICATES IN ALDEX
 
 x.1000 <- aldex(aldex.data, conditions, mc.samples=1000)
 
