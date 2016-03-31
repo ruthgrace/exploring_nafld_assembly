@@ -87,7 +87,5 @@ make_stripchart <- function(inputfile,outputfolder=".") {
 	#-----------
 
 make_stripchart("subsys4_counts/ALDEx_output_for_stripcharts.txt","subsys4_counts")
-# make_stripchart("carbohydrates/ALDEx_output_for_stripcharts.txt","carbohydrates")
-# make_stripchart("lipids/ALDEx_output_for_stripcharts.txt","lipids")
-# make_stripchart("subsys4_counts/ALDEx_output_for_stripcharts_ordered_by_effect_carbohydrates_only.txt", "subsys4_counts/carbohydrates")
-# make_stripchart("subsys4_counts/ALDEx_output_for_stripcharts_ordered_by_effect_lipids_only.txt", "subsys4_counts/lipids")
+make_stripchart("subsys4_counts/ALDEx_output_for_stripcharts_carbs_only.txt", "subsys4_counts/carbohydrates")
+make_stripchart("subsys4_counts/ALDEx_output_for_stripcharts_lipids_only.txt", "subsys4_counts/lipids")
