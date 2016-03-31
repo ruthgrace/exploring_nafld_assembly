@@ -72,12 +72,15 @@ while(defined (my $l = <COUNTFILE>)) {
       print OUTFILE $seqs{$id} . "\n";
 			print "found id in seqs\n";
     }
-    else {
-      %seqs = %aa_seqs;
-      print "Switched to amino acid reference at " . $l . "\n";
-      close OUTFILE;
-      open (OUTFILE, "> $faa_out") or die "Could not open $faa_out\n";
-    }
+		else {
+			print "wasn't able to find id :( \n";
+		}
+    # else {
+    #   %seqs = %aa_seqs;
+    #   print "Switched to amino acid reference at " . $l . "\n";
+    #   close OUTFILE;
+    #   open (OUTFILE, "> $faa_out") or die "Could not open $faa_out\n";
+    # }
   }
   else {
     print "Unable to parse " . $l . "\n";
