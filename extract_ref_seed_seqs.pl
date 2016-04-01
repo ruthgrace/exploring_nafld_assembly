@@ -8,6 +8,7 @@ Fourth argument is the output file for all remaining unmatched ref sequence segm
 print $help if !$ARGV[0];exit if !$ARGV[0];
 print $help if !$ARGV[1];exit if !$ARGV[1];
 print $help if !$ARGV[2];exit if !$ARGV[2];
+print $help if !$ARGV[3];exit if !$ARGV[3];
 
 my $blastout = $ARGV[0];
 my $refseq = $ARGV[1];

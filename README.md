@@ -75,7 +75,27 @@ nohup nice -n 1 ./assembly_blast.sh > assembly_blast_nohup.out 2>&1&
 
 ## Create fasta file for bowtie index
 
-Add sample names to all assembled refseq ids:
+Extract non overlapping portions of reference sequence that match the SEED database. The argument is a directory containing a directory for each sample, which has the BLAST output.
+
+```
+nohup ./extract_all_ref_seed_seqs.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > extract_all_ref_seed_seqs_nohup.out 2>&1&
+```
+
+Add sample names to ref seed seqs:
+
+```
+nohup add_all_samples_names_to_refseq_matches.sh > add_all_samples_names_to_refseq_matches_nohup.out 2>&1&
+```
+
+Recursively BLAST non matching sequences > 500 long to SEED
+
+[TODO: write this script]
+
+
+
+
+
+Add sample names to extracted refseq ids:
 
 ```
 nohup ./add_all_samples_name_to_no_refseq.sh > add_all_samples_name_to_no_refseq_nohup.out 2>&1&
@@ -93,6 +113,8 @@ I realized that I had some super long sequence IDs, so I removed everything `_pa
 nohup perl remove_path_from_fasta.pl all_assembled_no_refseqs_with_sample_name.fa all_assembled_no_refseqs_with_sample_name_no_path.fa > remove_path_from_fasta_nohup.out 2>&1&
 nohup ./remove_path_from_all_blast_out.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > remove_path_from_blast_out_nohup.out 2>&1&
 ```
+
+[TODO: add bowtie build command]
 
 ## Get seed hierarchy for all samples
 
