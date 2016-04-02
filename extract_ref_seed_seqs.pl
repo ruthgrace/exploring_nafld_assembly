@@ -74,7 +74,7 @@ while(defined (my $l = <BLAST>)) {
         $segmentlength = $segments{$key} - $key + 1;
         $seq = substr $seqs{$id}, $key, $segmentlength;
         print MATCH $seq . "\n";
-        $append = $append + 1;
+        ++$append;
       }
       @starts = sort @starts;
       $append = 'A';
@@ -85,7 +85,7 @@ while(defined (my $l = <BLAST>)) {
           $segmentlength = $key - $prevend - 1;
           $seq = substr $seqs{$id}, $prevend + 1, $segmentlength;
           print UNMATCH $seq . "\n";
-          $append = $append + 1;
+          ++$append;
         }
         $prevend = $segments{$key};
       }
@@ -94,7 +94,7 @@ while(defined (my $l = <BLAST>)) {
         $segmentlength = length($id) - $prevend - 1;
         $seq = substr $seqs{$id}, $prevend + 1, $segmentlength;
         print UNMATCH $seq . "\n";
-        $append = $append + 1;
+        ++$append;
       }
       %segments = ();
       $segments{$start} = $end;
