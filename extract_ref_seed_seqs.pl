@@ -116,7 +116,7 @@ while(defined (my $l = <BLAST>)) {
       $overlap = 0;
       @starts = keys %segments;
       foreach $key (@starts) {
-        if (($start >= $key && $start <= $segments{$key}) || ($end >= $key && $end <= $segments{$key})) {
+        if (($start >= $key && $start <= $segments{$key}) || ($end >= $key && $end <= $segments{$key}) || ($key >= $start && $key <= $end)) {
           $overlap = 1;
           last;
         }
