@@ -58,6 +58,7 @@ my $prevend;
 my $key;
 my %matchlines;
 my $blastline;
+my @blastlineitems;
 while(defined (my $l = <BLAST>)) {
 	chomp ($l);
   @lineitems = split(/\t/, $l);
@@ -80,7 +81,8 @@ while(defined (my $l = <BLAST>)) {
         $segmentlength = $segments{$key} - $key + 1;
         $seq = substr $seqs{$previd}, $key, $segmentlength;
         print MATCH $seq . "\n";
-        $blastline = split("\t", $matchlines{$key}, 2)[1];
+        @blastlineitems = split("\t", $matchlines{$key}, 2);
+				$blastline = $blastlineitems[1];
         print MATCHBLAST $previd . "_" . $append . "\t" . $blastline . "\n";
         ++$append;
       }
