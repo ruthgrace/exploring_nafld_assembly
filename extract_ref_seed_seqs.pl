@@ -44,7 +44,7 @@ print "Processed sequences in " . $blastout . "\n";
 open (MATCH, "> $matchout") or die "Could not open $matchout\n";
 open (UNMATCH, "> $unmatchout") or die "Could not open $unmatchout\n";
 open (BLAST, "< $blastout") or die "Could not open $blastout\n";
-open (MATCHBLAST, "< $matchblast") or die "Could not open $matchblast\n";
+open (MATCHBLAST, "> $matchblast") or die "Could not open $matchblast\n";
 my @lineitems;
 my %segments;
 my $previd = "";
