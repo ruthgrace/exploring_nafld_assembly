@@ -52,7 +52,7 @@ my $append;
 my $segmentlength;
 my $prevend;
 my $key;
-while(defined (my $l = <SEQFILE>)) {
+while(defined (my $l = <BLAST>)) {
 	chomp ($l);
   @lineitems = split(/\t/, $l);
   if (@lineitems == 12) {
