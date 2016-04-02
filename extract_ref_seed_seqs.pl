@@ -70,10 +70,10 @@ while(defined (my $l = <BLAST>)) {
       $append = 1;
       @starts = keys %segments;
       foreach $key (@starts) {
-        print MATCH ">" . $id . "_" . $append . "\n";
+        print MATCH ">" . $previd . "_" . $append . "\n";
         $segmentlength = $segments{$key} - $key + 1;
-        print "id; " . $id . " key: " . $key . " segmentskey: " . $segments{$key} . " segmentlength: " . $segmentlength . " seqlength: " . length($seqs{$id}) . "\n";
-        $seq = substr $seqs{$id}, $key, $segmentlength;
+        print "id; " . $previd . " key: " . $key . " segmentskey: " . $segments{$key} . " segmentlength: " . $segmentlength . " seqlength: " . length($seqs{$previd}) . "\n";
+        $seq = substr $seqs{$previd}, $key, $segmentlength;
         print MATCH $seq . "\n";
         ++$append;
       }
@@ -82,23 +82,24 @@ while(defined (my $l = <BLAST>)) {
       $prevend = -1;
       foreach $key (@starts) {
         if ($key - $prevend > 500) {
-          print UNMATCH ">" . $id . "_" . $append . "\n";
+          print UNMATCH ">" . $previd . "_" . $append . "\n";
           $segmentlength = $key - $prevend - 1;
-          $seq = substr $seqs{$id}, $prevend + 1, $segmentlength;
+          $seq = substr $seqs{$previd}, $prevend + 1, $segmentlength;
           print UNMATCH $seq . "\n";
           ++$append;
         }
         $prevend = $segments{$key};
       }
-      if (length($id) - $prevend > 500) {
-        print UNMATCH ">" . $id . "_" . $append . "\n";
-        $segmentlength = length($id) - $prevend - 1;
-        $seq = substr $seqs{$id}, $prevend + 1, $segmentlength;
+      if (length($previd) - $prevend > 500) {
+        print UNMATCH ">" . $previd . "_" . $append . "\n";
+        $segmentlength = length($previd) - $prevend - 1;
+        $seq = substr $seqs{$previd}, $prevend + 1, $segmentlength;
         print UNMATCH $seq . "\n";
         ++$append;
       }
       %segments = ();
       $segments{$start} = $end;
+      $previd = $id;
     }
     else {
       $overlap = 0;
