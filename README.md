@@ -88,36 +88,6 @@ Extract non overlapping portions of reference sequence that match the SEED datab
 nohup ./extract_all_ref_seed_seqs.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > extract_all_ref_seed_seqs_nohup.out 2>&1&
 ```
 
-clean up output files:
-
-```
-rm *extract_ref_seed_seqs_nohup.out
-```
-
-Add sample names to ref seed seqs:
-
-```
-nohup ./add_all_sample_names_to_refseq_matches.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > add_all_sample_names_to_refseq_matches_nohup.out 2>&1&
-```
-
-Add sample names to unmatched seqs:
-
-```
-nohup ./add_all_sample_names_to_non_refseq_matches.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > add_all_sample_names_to_non_refseq_matches_nohup.out 2>&1&
-```
-
-Concatenate all unmatched refseqs:
-
-```
-cat */*_refseq_non_matches_with_sample_name.fasta > all_refseq_non_matches_1.fasta
-```
-
-Concatenate all matched refseqs:
-
-```
-cat */*_refseq_matches_with_sample_name.fasta > all_refseq_matches_1.fasta
-```
-
 Recursively BLAST non matching sequences > 500 long to SEED. Files output from each round of recursion will be output with the recursion count number.
 
 ```

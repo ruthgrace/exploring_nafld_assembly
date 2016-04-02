@@ -1,4 +1,4 @@
-for d in "$1"/*/ ; do
+for d in "$1"/[CH]*/ ; do
   sample=$(basename $d);
   echo "processing $sample";
   ./remove_path_from_fasta.pl "../scripts/trinity_"$sample"/Trinity.fasta" "../scripts/trinity_"$sample"/Trinity_no_path.fasta";
