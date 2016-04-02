@@ -65,7 +65,7 @@ while(defined (my $l = <BLAST>)) {
       $end = $lineitems[7];
     }
     $id = $lineitems[0];
-    if ($id != $previd) {
+    if ($id ne $previd) {
       # append seqids of matched segments with numbers, and unmatched segments > 500 long with letters
       $append = 1;
       @starts = keys %segments;
