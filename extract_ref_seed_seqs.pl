@@ -72,7 +72,6 @@ while(defined (my $l = <BLAST>)) {
       foreach $key (@starts) {
         print MATCH ">" . $previd . "_" . $append . "\n";
         $segmentlength = $segments{$key} - $key + 1;
-        print "id; " . $previd . " key: " . $key . " segmentskey: " . $segments{$key} . " segmentlength: " . $segmentlength . " seqlength: " . length($seqs{$previd}) . "\n";
         $seq = substr $seqs{$previd}, $key, $segmentlength;
         print MATCH $seq . "\n";
         ++$append;
