@@ -91,7 +91,7 @@ nohup ./extract_all_ref_seed_seqs.sh /Volumes/data/ruth/nafld_assembly/assembly_
 Recursively BLAST non matching sequences > 500 long to SEED. Files output from each round of recursion will be output with the recursion count number.
 
 ```
-nohup ./recursive_blast_to_seed.sh > recursive_blast_to_seed_nohup.out 2>&1&
+nohup ./recursive_blast_to_seed.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > recursive_blast_to_seed_nohup.out 2>&1&
 ```
 
 Concatenate all refseq SEED match sequences
