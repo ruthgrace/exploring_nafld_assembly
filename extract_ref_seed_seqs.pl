@@ -72,7 +72,7 @@ while(defined (my $l = <BLAST>)) {
       foreach $key (@starts) {
         print MATCH ">" . $id . "_" . $append . "\n";
         $segmentlength = $segments{$key} - $key + 1;
-        $seq = substr $seqs{$id}, $key, $segmentlength;
+        $seq = substr($seqs{$id}, $key, $segmentlength);
         print MATCH $seq . "\n";
         ++$append;
       }
