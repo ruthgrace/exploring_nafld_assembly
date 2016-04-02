@@ -80,10 +80,10 @@ while(defined (my $l = <SEQFILE>)) {
       $append = 'A';
       $prevend = -1;
       foreach $key (@starts) {
-        if ($key - $prevstart > 500) {
+        if ($key - $prevend > 500) {
           print UNMATCH ">" . $id . "_" . $append . "\n";
-          $segmentlength = $key - $prevstart - 1;
-          $seq = substr $seqs{$id}, $prevstart + 1, $segmentlength;
+          $segmentlength = $key - $prevend - 1;
+          $seq = substr $seqs{$id}, $prevend + 1, $segmentlength;
           print UNMATCH $seq . "\n";
           $append = $append + 1;
         }
