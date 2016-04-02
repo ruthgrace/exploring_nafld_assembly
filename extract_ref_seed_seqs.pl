@@ -4,16 +4,19 @@ use strict;
 my $help = "\tFirst argument is a path to the BLAST output (outfmt 6).\n
 Second argument is the refseqs fasta\n
 Third argument is the output file for the sections of ref sequences matching the SEED database\n
-Fourth argument is the output file for all remaining unmatched ref sequence segments over 500 nt long\n";
+Fourth argument is the output file for all remaining unmatched ref sequence segments over 500 nt long\n
+Fifth argument is the output file for the seed match blast output\n";
 print $help if !$ARGV[0];exit if !$ARGV[0];
 print $help if !$ARGV[1];exit if !$ARGV[1];
 print $help if !$ARGV[2];exit if !$ARGV[2];
 print $help if !$ARGV[3];exit if !$ARGV[3];
+print $help if !$ARGV[4];exit if !$ARGV[4];
 
 my $blastout = $ARGV[0];
 my $refseq = $ARGV[1];
 my $matchout = $ARGV[2];
 my $unmatchout = $ARGV[3];
+my $matchblast = $ARGV[4];
 
 my %seqs;
 my $id = "";
@@ -41,6 +44,7 @@ print "Processed sequences in " . $blastout . "\n";
 open (MATCH, "> $matchout") or die "Could not open $matchout\n";
 open (UNMATCH, "> $unmatchout") or die "Could not open $unmatchout\n";
 open (BLAST, "< $blastout") or die "Could not open $blastout\n";
+open (MATCHBLAST, "< $matchblast") or die "Could not open $matchblast\n";
 my @lineitems;
 my %segments;
 my $previd = "";
@@ -52,6 +56,8 @@ my $append;
 my $segmentlength;
 my $prevend;
 my $key;
+my %matchlines;
+my $blastline;
 while(defined (my $l = <BLAST>)) {
 	chomp ($l);
   @lineitems = split(/\t/, $l);
@@ -74,6 +80,8 @@ while(defined (my $l = <BLAST>)) {
         $segmentlength = $segments{$key} - $key + 1;
         $seq = substr $seqs{$previd}, $key, $segmentlength;
         print MATCH $seq . "\n";
+        $blastline = split("\t", $matchlines{$key}, 2)[1];
+        print MATCHBLAST $previd . "_" . $append . "\t" . $blastline . "\n";
         ++$append;
       }
       @starts = sort @starts;
@@ -97,7 +105,9 @@ while(defined (my $l = <BLAST>)) {
         ++$append;
       }
       %segments = ();
+      %matchlines = ();
       $segments{$start} = $end;
+      $matchlines{$start} = $l;
       $previd = $id;
     }
     else {
@@ -111,6 +121,7 @@ while(defined (my $l = <BLAST>)) {
       }
       if (!$overlap) {
         $segments{$start} = $end;
+        $matchlines{$start} = $l;
       }
     }    
   }
