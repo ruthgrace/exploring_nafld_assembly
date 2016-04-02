@@ -90,13 +90,13 @@ rm *extract_ref_seed_seqs_nohup.out
 Add sample names to ref seed seqs:
 
 ```
-nohup ./add_all_sample_names_to_refseq_matches.sh > add_all_sample_names_to_refseq_matches_nohup.out 2>&1&
+nohup ./add_all_sample_names_to_refseq_matches.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > add_all_sample_names_to_refseq_matches_nohup.out 2>&1&
 ```
 
 Add sample names to unmatched seqs:
 
 ```
-nohup ./add_all_sample_names_to_non_refseq_matches.sh > add_all_sample_names_to_non_refseq_matches_nohup.out 2>&1&
+nohup ./add_all_sample_names_to_non_refseq_matches.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > add_all_sample_names_to_non_refseq_matches_nohup.out 2>&1&
 ```
 
 Recursively BLAST non matching sequences > 500 long to SEED
