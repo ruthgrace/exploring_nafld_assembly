@@ -91,7 +91,7 @@ while(defined (my $l = <SEQFILE>)) {
       }
       if (length($id) - $prevend > 500) {
         print UNMATCH ">" . $id . "_" . $append . "\n";
-        $segmentlength = length(id) - $prevend - 1;
+        $segmentlength = length($id) - $prevend - 1;
         $seq = substr $seqs{$id}, $prevend + 1, $segmentlength;
         print UNMATCH $seq . "\n";
         $append = $append + 1;
