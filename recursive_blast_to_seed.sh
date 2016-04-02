@@ -5,10 +5,10 @@ nonmatchfile=$nonmatch"_"$counter".fasta";
 seqsize=$(wc -c <"$nonmatchfile")
 while [ $seqsize -ge 0 ]; do
   echo "recursion round "$counter", seqfile size "$seqsize;
-  counter=$counter+1;
+  counter=$((counter+1));
   blastout=$nonmatch"_"$counter"_SEED_blast.out";
   #blastx
-  blastx -db ../../../SEED_database/db_fastas.complex_plusold.faa -query $nonmatchfile -out $blastout -outfmt 6 -evalue 1e-3 -num_alignments 1000 -num_threads 44
+  blastx -db ../../../SEED_database/db_fastas.complex_plusold.faa -query $nonmatchfile -out $blastout -outfmt 6 -evalue 1e-3 -num_alignments 100 -num_threads 44
   #extract matches and non matches
   counter=$counter+1;
   newnonmatchfile=$nonmatch"_"$counter".fasta";

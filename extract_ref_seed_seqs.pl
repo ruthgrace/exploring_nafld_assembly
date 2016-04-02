@@ -18,7 +18,7 @@ my $unmatchout = $ARGV[3];
 my %seqs;
 my $id = "";
 my $seq = "";
-open (SEQFILE, "< $refseq") or die "Could not open $refseq\n";
+open (SEQFILE, "< $refseq") or die "";
 while(defined (my $l = <SEQFILE>)) {
 	chomp ($l);
 	if ($l =~ /^>/) {
