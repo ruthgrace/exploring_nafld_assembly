@@ -99,6 +99,12 @@ Add sample names to unmatched seqs:
 nohup ./add_all_sample_names_to_non_refseq_matches.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > add_all_sample_names_to_non_refseq_matches_nohup.out 2>&1&
 ```
 
+Concatenate all unmatched refseqs:
+
+```
+cat */*_refseq_non_matches_with_sample_name.fasta > all_refseq_non_matches.fasta
+```
+
 Recursively BLAST non matching sequences > 500 long to SEED
 
 [TODO: write this script]
