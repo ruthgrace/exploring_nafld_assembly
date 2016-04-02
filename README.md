@@ -130,9 +130,13 @@ Concatenate all refseq SEED match sequences
 cat all_refseq_matches*.fasta > all_recursive_refseq_matches.fasta
 ```
 
+Build bowtie index inside `seed_matches` folder
 
-
-[TODO: add bowtie build command]
+```
+mkdir seed_matches
+cd seed_matches
+bowtie2-build ../all_recursive_refseq_matches.fasta seed_matches
+```
 
 ## Get seed hierarchy for all samples
 
