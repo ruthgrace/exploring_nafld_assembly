@@ -1,5 +1,12 @@
 # exploring_nafld_assembly
 
+## Dhortening sequence id
+I realized that I had some super long sequence IDs later in this process, so I removed everything `_path` and after in the sequence IDs in the reference library `all_assembled_no_refseqs_with_sample_name.fa` (using `remove_path_from_fasta.pl`) and the annotation `$sample"/"$sample"_SEED_blast.out"` (using `remove_path_from_all_blast_out.sh`). I also had to clean up the mapping data with `./remove_path_from_all_sam.sh` because I had already done the mapping when I decided to change the seq ids. I recommend that this be done on each sample for any Trinity output sequences, because sometimes the path value included in the sequence ID can be very long, and this seriously affects the size and processing speed for files later in the analysis process.
+
+```
+nohup perl remove_path_from_fasta.pl "../scripts/trinity_"$sample$"/Trinity.fasta" "../scripts/trinity_"$sample$"/Trinity_no_path.fasta" > remove_path_from_fasta_nohup.out 2>&1&
+```
+
 ## BLAST to annotations
 
 Blasting all the assembled sequences to the SEED database for annotations would take a super long time because
@@ -102,41 +109,28 @@ nohup ./add_all_sample_names_to_non_refseq_matches.sh /Volumes/data/ruth/nafld_a
 Concatenate all unmatched refseqs:
 
 ```
-cat */*_refseq_non_matches_with_sample_name.fasta > all_refseq_non_matches.fasta
+cat */*_refseq_non_matches_with_sample_name.fasta > all_refseq_non_matches_1.fasta
 ```
 
-Recursively BLAST non matching sequences > 500 long to SEED
-
-[TODO: write this script]
-
-
-
-
-
-Add sample names to extracted refseq ids:
+Concatenate all matched refseqs:
 
 ```
-nohup ./add_all_samples_name_to_no_refseq.sh > add_all_samples_name_to_no_refseq_nohup.out 2>&1&
+cat */*_refseq_matches_with_sample_name.fasta > all_refseq_matches_1.fasta
 ```
 
-Concatenate all assembled refseqs:
+Recursively BLAST non matching sequences > 500 long to SEED. Files output from each round of recursion will be output with the recursion count number.
 
 ```
-cat */*_assembled_no_refseqs_with_sample_name.fa > all_assembled_no_refseqs_with_sample_name.fa
+nohup ./recursive_blast_to_seed.sh > recursive_blast_to_seed_nohup.out 2>&1&
 ```
 
-I realized that I had some super long sequence IDs, so I removed everything `_path` and after in the sequence IDs in the reference library `all_assembled_no_refseqs_with_sample_name.fa` and the annotation `$sample"/"$sample"_SEED_blast.out"`. I also had to clean up the mapping data with `./remove_path_from_all_sam.sh` because I had already done the mapping when I decided to change the seq ids.
+Concatenate all refseq SEED match sequences
 
 ```
-nohup perl remove_path_from_fasta.pl all_assembled_no_refseqs_with_sample_name.fa all_assembled_no_refseqs_with_sample_name_no_path.fa > remove_path_from_fasta_nohup.out 2>&1&
-nohup ./remove_path_from_all_blast_out.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > remove_path_from_blast_out_nohup.out 2>&1&
+cat all_refseq_matches*.fasta > all_recursive_refseq_matches.fasta
 ```
 
-clean up:
 
-```
-rm remove_path_from_sam_*_nohup.out
-```
 
 [TODO: add bowtie build command]
 
