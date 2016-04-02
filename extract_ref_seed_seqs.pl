@@ -51,6 +51,7 @@ my @starts;
 my $append;
 my $segmentlength;
 my $prevend;
+my $key;
 while(defined (my $l = <SEQFILE>)) {
 	chomp ($l);
   @lineitems = split(/\t/, $l);
