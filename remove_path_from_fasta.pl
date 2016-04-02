@@ -1,4 +1,4 @@
-#!/usr/bin/env perl -w
+#!/usr/bin perl -w
 #use strict;
 my $help = "\tFirst argument is a path to the assembled sequences\n
 Second argument is path to output file\n";

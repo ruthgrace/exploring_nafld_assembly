@@ -1,4 +1,4 @@
-#!/usr/bin/ perl -w
+#!/usr/bin perl -w
 use strict;
 
 my $help = "\tFirst argument is a path to the BLAST output (outfmt 6).\n
