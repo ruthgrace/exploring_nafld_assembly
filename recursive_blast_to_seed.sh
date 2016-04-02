@@ -5,7 +5,7 @@ for d in "$1"/[CH]*/ ; do
   nonmatch="refseq_non_matches";
   match="refseq_matches";
   nonmatchfile=$d$sample"_"$nonmatch"_"$counter".fasta";
-  cp $nonmatch".fasta" $nonmatchfile;
+  cp $d$sample"_"$nonmatch".fasta" $nonmatchfile;
   seqsize=$(wc -c <"$nonmatchfile")
   while [ $seqsize -ge 0 ]; do
     echo "recursion round "$counter", seqfile size "$seqsize;
