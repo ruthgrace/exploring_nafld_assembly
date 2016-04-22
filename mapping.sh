@@ -20,7 +20,7 @@ SAMPLE_DIR=/Volumes/data/ruth/nafld_assembly/reads
 REFSEQS=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/all_recursive_refseq_matches.fasta
 OUTPUTFOLDER=/Volumes/data/ruth/nafld_assembly/assembly_recursive_mapping
 # Name of your bowtie index. Will output to your working dir
-IDX="/Volumes/data/ruth/nafld_assembly/seed_matches"
+IDX="/Volumes/data/ruth/nafld_assembly/seed_matches/seed_matches"
 
 BIN=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/bin
 #----------------------------------------------------------------------------
