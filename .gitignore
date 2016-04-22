@@ -24,4 +24,5 @@ assembled_library_for_kegg.fa
 constructed_library_for_kegg.faa
 all_refseq_matches*
 all_refseq_non_matches*
+all_recursive_refseq_matches.fasta
 
