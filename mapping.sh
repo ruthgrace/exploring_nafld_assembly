@@ -13,22 +13,22 @@
 
 # All mapping output will be put to WORKING_DIR as SAMPLE_NAME_map/
 #WORKING_DIR=/Volumes/rhamnosucs/twntyfr/map_bac
-WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_mapping
+WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_recursive_mapping
 # Location of the fastq files to ma
 SAMPLE_DIR=/Volumes/data/ruth/nafld_assembly/reads
 # Location of the fasta for the reference index
-REFSEQS=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/all_assembled_no_refseqs_with_sample_name.fa
-OUTPUTFOLDER=/Volumes/data/ruth/nafld_assembly/assembly_mapping
+REFSEQS=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/all_recursive_refseq_matches.fasta
+OUTPUTFOLDER=/Volumes/data/ruth/nafld_assembly/assembly_recursive_mapping
 # Name of your bowtie index. Will output to your working dir
-IDX="/Volumes/data/ruth/nafld_assembly/assembly_index/nafld_assembly_no_refseq"
+IDX="/Volumes/data/ruth/nafld_assembly/seed_matches"
 
-BIN=/Volumes/longlunch/seq/LRGC/ruth_meta/bin
+BIN=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/bin
 #----------------------------------------------------------------------------
 # Get bowtie version
 
 echo "# Mapper version:"
 bowtie2 --version
-
+	
 #/Groups/twntyfr/bin/bowtie2-2.1.0/bowtie2-align version 2.1.0
 #64-bit
 #Built on ifx5.ebalto.jhmi.edu
