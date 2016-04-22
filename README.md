@@ -103,13 +103,13 @@ nohup ./cat_all_refseq_matches.sh > cat_all_refseq_matches_nohup.out 2>&1&
 Add sample names to refseq matches per sample
 
 ```
-nohup ./add_sample_name_to_all_refseq_matches.sh > add_sample_name_nohup.out 2>&1&
+nohup add_all_sample_names_to_refseq_match_fasta.sh > add_all_sample_names_to_refseq_match_fasta_nohup.out 2>&1&
 ```
 
 Concatenate all refseq SEED match sequences
 
 ```
-cat all_refseq_matches*.fasta > all_recursive_refseq_matches.fasta
+cat */*all_refseq_matches.fasta > all_recursive_refseq_matches.fasta
 ```
 
 Build bowtie index inside `seed_matches` folder
