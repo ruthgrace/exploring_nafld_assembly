@@ -69,7 +69,7 @@ for f in $( ls $SAMPLE_DIR ); do
 	echo "# Starting mapping on $SAMPLE : `date`"
 
 #####	bowtie2 -x $IDX -U $SAMPLE_DIR/$f -S $DIR/$SAMPLE.sam -p 40 -N 1 -D 20 -R 3 -L 20 #2> $DIR/errlog.txt
-	bowtie2 -x $IDX -U $SAMPLE_DIR/$f.fastq -S $DIR/$SAMPLE.sam -p 40 -N 1 -D 20 -R 3 -L 20 #2> $DIR/errlog.txt
+	bowtie2 -x $IDX -U $SAMPLE_DIR/$f -S $DIR/$SAMPLE.sam -p 40 -N 1 -D 20 -R 3 -L 20 #2> $DIR/errlog.txt
 
 	echo -e "# Done mapping $SAMPLE : `date`\n"
 
