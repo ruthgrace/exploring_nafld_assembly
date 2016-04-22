@@ -103,7 +103,7 @@ nohup ./cat_all_refseq_matches.sh /Volumes/data/ruth/nafld_assembly/assembly_tes
 Add sample names to refseq matches per sample
 
 ```
-nohup add_all_sample_names_to_refseq_match_fasta.sh > add_all_sample_names_to_refseq_match_fasta_nohup.out 2>&1&
+nohup ./add_all_sample_names_to_refseq_match_fasta.sh > add_all_sample_names_to_refseq_match_fasta_nohup.out 2>&1&
 ```
 
 Concatenate all refseq SEED match sequences
