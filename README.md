@@ -97,7 +97,7 @@ nohup ./recursive_blast_to_seed.sh /Volumes/data/ruth/nafld_assembly/assembly_te
 Concatenate refseq matches (fasta file and seed blast out) per sample
 
 ```
-nohup ./cat_all_refseq_matches.sh > cat_all_refseq_matches_nohup.out 2>&1&
+nohup ./cat_all_refseq_matches.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > cat_all_refseq_matches_nohup.out 2>&1&
 ```
 
 Add sample names to refseq matches per sample
