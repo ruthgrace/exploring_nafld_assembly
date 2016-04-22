@@ -94,6 +94,18 @@ Recursively BLAST non matching sequences > 500 long to SEED. Files output from e
 nohup ./recursive_blast_to_seed.sh /Volumes/data/ruth/nafld_assembly/assembly_test_blast > recursive_blast_to_seed_nohup.out 2>&1&
 ```
 
+Concatenate refseq matches (fasta file and seed blast out) per sample
+
+```
+nohup ./cat_all_refseq_matches.sh > cat_all_refseq_matches_nohup.out 2>&1&
+```
+
+Add sample names to refseq matches per sample
+
+```
+nohup ./add_sample_name_to_all_refseq_matches.sh > add_sample_name_nohup.out 2>&1&
+```
+
 Concatenate all refseq SEED match sequences
 
 ```
