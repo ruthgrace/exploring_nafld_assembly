@@ -112,12 +112,14 @@ Concatenate all refseq SEED match sequences
 cat */*all_refseq_matches_with_sample_name.fasta > all_recursive_refseq_matches.fasta
 ```
 
+Manually remove all lines in `all_recursive_refseq_matches.fasta` that start with `Could not open` (or write your own script). This happens because I have non sample folders in my directory (such as `bin/`).
+
 Build bowtie index inside `seed_matches` folder
 
 ```
 mkdir seed_matches
 cd seed_matches
-bowtie2-build ../all_recursive_refseq_matches.fasta seed_matches
+nohup bowtie2-build ../all_recursive_refseq_matches.fasta seed_matches > bowtie_build_nohup.out 2>&1&
 ```
 
 ## Get seed hierarchy for all samples
