@@ -1,6 +1,6 @@
 # exploring_nafld_assembly
 
-## Dhortening sequence id
+## Shortening sequence id
 I realized that I had some super long sequence IDs later in this process, so I removed everything `_path` and after in the sequence IDs in the reference library `all_assembled_no_refseqs_with_sample_name.fa` (using `remove_path_from_fasta.pl`) and the annotation `$sample"/"$sample"_SEED_blast.out"` (using `remove_path_from_all_blast_out.sh`). I also had to clean up the mapping data with `./remove_path_from_all_sam.sh` because I had already done the mapping when I decided to change the seq ids. I recommend that this be done on each sample for any Trinity output sequences, because sometimes the path value included in the sequence ID can be very long, and this seriously affects the size and processing speed for files later in the analysis process.
 
 ```
