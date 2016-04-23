@@ -13,12 +13,12 @@
 
 # All mapping output will be put to WORKING_DIR as SAMPLE_NAME_map/
 #WORKING_DIR=/Volumes/rhamnosucs/twntyfr/map_bac
-WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_mapping
+WORKING_DIR=/Volumes/data/ruth/nafld_assembly/assembly_recursive_mapping
 # Location of the fastq files to ma
 SAMPLE_DIR=/Volumes/data/ruth/nafld_assembly/reads
 # Location of the fasta for the reference index
-REFSEQS=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/all_assembled_no_refseqs_with_sample_name.fa
-OUTPUTFOLDER=/Volumes/data/ruth/nafld_assembly/assembly_mapping
+REFSEQS=/Volumes/data/ruth/nafld_assembly/assembly_test_blast/all_recursive_refseq_matches.fasta
+OUTPUTFOLDER=/Volumes/data/ruth/nafld_assembly/assembly_recursive_mapping
 # Name of your bowtie index. Will output to your working dir
 IDX="/Volumes/data/ruth/nafld_assembly/assembly_index/nafld_assembly_no_refseq"
 
