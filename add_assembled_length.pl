@@ -9,7 +9,7 @@ my $counts = $ARGV[0];
 my $out = $ARGV[1];
 
 # read in all refseq lengths
-my $seqlength = -1;
+my $seqlength = "";
 my @countlineitems;
 my $firstline = 1;
 open (COUNTFILE, "< $counts") or die "Could not open $counts\n";
