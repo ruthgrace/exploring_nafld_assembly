@@ -26,7 +26,7 @@ while(defined (my $l = <COUNTFILE>)) {
 		if (@countlineitems == 2) {
       if ($countlineitems[0] =~ m/_len=[^_]+/g) {
         $seqlength = $1;
-        print OUTFILE "$countlineitems[0]\t$seqlength\t$countlineitems[1]\n";
+        print OUTFILE $countlineitems[0] . "\t" . $seqlength . "\t" . $countlineitems[1] . "\n";
       }
       else {
         print "was not able to parse seqlength for line $l\n";
