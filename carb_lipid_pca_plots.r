@@ -145,7 +145,7 @@ arrow.len=0.05,
 xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
 xlabs.col=c(rep("red",10),rep("black",10)),
-expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
+expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis")
 barplot(d.pcx$sdev^2/mvar(d.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
 mylabels <- str_extract(rownames(d.pcx$x),"^[A-Z]+_[0-9]+")
@@ -164,7 +164,7 @@ xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
 xlabs.col=c(rep("red",10),rep("black",10)),
 ylabs=points,
-expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
+expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis")
 barplot(d.pcx$sdev^2/mvar(d.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
 
@@ -174,7 +174,7 @@ arrow.len=0.05,
 xlab=paste("PC1 ", round (sum(d.filter.pcx$sdev[1]^2)/mvar(d.filter.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep=""),
 xlabs.col=c(rep("red",10),rep("black",10)),
-expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis")
+expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis\nwith sparsity filter")
 barplot(d.filter.pcx$sdev^2/mvar(d.filter.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
 mylabels <- str_extract(rownames(d.filter.pcx$x),"^[A-Z]+_[0-9]+")
@@ -182,7 +182,7 @@ layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
 plot(d.filter.pcx$x[,1],d.filter.pcx$x[,2],col="white",xlim=c(min(d.filter.pcx$x[,1])-10,max(d.filter.pcx$x[,1])+10),ylim=c(min(d.filter.pcx$x[,2]) - 10, max(d.filter.pcx$x[,2]) + 10),
 xlab=paste("PC1 ", round (sum(d.filter.pcx$sdev[1]^2)/mvar(d.filter.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep=""),
-,main="Principal Components Analysis")
+,main="Principal Components Analysis\nwith sparsity filter")
 text(d.filter.pcx$x[,1],d.filter.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
 points <- c(rep(".", length(dimnames(d.filter.pcx$rotation)[[1]])))
@@ -193,12 +193,32 @@ xlab=paste("PC1 ", round (sum(d.filter.pcx$sdev[1]^2)/mvar(d.filter.clr),3), sep
 ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep=""),
 xlabs.col=c(rep("red",10),rep("black",10)),
 ylabs=points,
-expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis")
+expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis\nwith sparsity filter")
 barplot(d.filter.pcx$sdev^2/mvar(d.filter.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
-dev.off()
-
-# library(ALDEx2)
+library(ALDEx2)
 # 
 # x <- aldex(d.pca.data, groups)
 # write.table(x,file="aldex_output_pca_plot_script.txt",sep="\t",quote=FALSE)
+
+x <- read.table(file="aldex_output_pca_plot_script.txt",sep="\t",quote="",comment.char="",header=TRUE,row.names=1)
+
+print(paste("rownames are in the same order in aldex output: ",all.equal(rownames(d.pca.data),rownames(x)),sep=" "))
+
+high.effect <- which(abs(x$effect) > 1)
+
+points <- c(rep("", length(dimnames(d.pcx$rotation)[[1]])))
+points[high.effect] <- dimnames(d.pcx$rotation)[[1]][high.effect]
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
+coloredBiplot(d.pcx, cex=c(0.6, 0.6),
+arrow.len=0.05,
+xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
+xlabs.col=c(rep("red",10),rep("black",10)),
+ylabs=points,
+expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis")
+barplot(d.pcx$sdev^2/mvar(d.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
+
+dev.off()
+
