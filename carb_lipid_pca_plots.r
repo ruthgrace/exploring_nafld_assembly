@@ -29,6 +29,9 @@ d.pca.data <- aggregate(d.samples,list(grouping),sum)
 rownames(d.pca.data) <- d.pca.data$Group.1
 d.pca.data <- d.pca.data[,c(2:ncol(d.pca.data))]
 
+sparseness <- apply(d.pca.data,1,function(x) { return(length(which(x > 0))); } )
+d.filter.pca.data  <- d.pca.data[which(sparseness > 2),]
+
 groups <- colnames(carbs.pca.data)
 groups[grepl("^H",groups)] <- "nash"
 groups[grepl("^C",groups)] <- "healthy"
@@ -37,26 +40,32 @@ groups[grepl("^C",groups)] <- "healthy"
 carbs.pca.adj.zero <- t(cmultRepl(t(carbs.pca.data),method="CZM"))
 lipids.pca.adj.zero <- t(cmultRepl(t(lipids.pca.data),method="CZM"))
 d.pca.adj.zero <- t(cmultRepl(t(d.pca.data),method="CZM"))
+d.filter.pca.adj.zero <- t(cmultRepl(t(d.filter.pca.data),method="CZM"))
 
 carbs.pca.adj.zero <- carbs.pca.adj.zero[order(apply(carbs.pca.adj.zero,1,sum),decreasing=TRUE),]
 lipids.pca.adj.zero <- lipids.pca.adj.zero[order(apply(lipids.pca.adj.zero,1,sum),decreasing=TRUE),]
 d.pca.adj.zero <- d.pca.adj.zero[order(apply(d.pca.adj.zero,1,sum),decreasing=TRUE),]
+d.filter.pca.adj.zero <- d.filter.pca.adj.zero[order(apply(d.filter.pca.adj.zero,1,sum),decreasing=TRUE),]
 
 carbs.names <- rownames(carbs.pca.adj.zero)
 lipids.names <- rownames(lipids.pca.adj.zero)
 d.names <- rownames(d.pca.adj.zero)
+d.filter.names <- rownames(d.filter.pca.adj.zero)
 
 carbs.prop <- apply(carbs.pca.adj.zero,2,function(x){x/sum(x)})
 lipids.prop <- apply(lipids.pca.adj.zero,2,function(x){x/sum(x)})
 d.prop <- apply(d.pca.adj.zero,2,function(x){x/sum(x)})
+d.filter.prop <- apply(d.filter.pca.adj.zero,2,function(x){x/sum(x)})
 
 carbs.clr <- t(apply(carbs.prop,2,function(x){log(x) - mean(log(x))}))
 lipids.clr <- t(apply(lipids.prop,2,function(x){log(x) - mean(log(x))}))
 d.clr <- t(apply(d.prop,2,function(x){log(x) - mean(log(x))}))
+d.filter.clr <- t(apply(d.filter.prop,2,function(x){log(x) - mean(log(x))}))
 
 carbs.pcx <- prcomp(carbs.clr)
 lipids.pcx <- prcomp(lipids.clr)
 d.pcx <- prcomp(d.clr)
+d.filter.pcx <- prcomp(d.filter.clr)
 
 conds <- data.frame(groups)
 colnames(conds) <- "cond"
@@ -77,6 +86,9 @@ xlabs.col=c(rep("red",10),rep("black",10)),
 expand=0.8,var.axes=FALSE, scale=1, main="Carbohydrate functions biplot")
 barplot(carbs.pcx$sdev^2/mvar(carbs.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
+myrgb <- col2rgb("black")
+mycolor <- rgb(myrgb[1], myrgb[2], myrgb[3], 0.3)
+
 #pca only, no biplot
 mylabels <- str_extract(rownames(carbs.pcx$x),"^[A-Z]+_[0-9]+")
 layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
@@ -85,6 +97,16 @@ xlab=paste("PC1 ", round (sum(carbs.pcx$sdev[1]^2)/mvar(carbs.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(carbs.pcx$sdev[2]^2)/mvar(carbs.clr),3), sep=""),
 ,main="Principal Components Analysis\nCarbohydrate subset")
 text(carbs.pcx$x[,1],carbs.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+
+#pca only, no biplot
+mylabels <- str_extract(rownames(carbs.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(carbs.pcx$x[,1],carbs.pcx$x[,2],col="white",xlim=c(min(carbs.pcx$x[,1])-10,max(carbs.pcx$x[,1])+10),ylim=c(min(carbs.pcx$x[,2]) - 10, max(carbs.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(carbs.pcx$sdev[1]^2)/mvar(carbs.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(carbs.pcx$sdev[2]^2)/mvar(carbs.clr),3), sep=""),
+,main="Principal Components Analysis\nCarbohydrate subset")
+text(carbs.pcx$x[,1],carbs.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+points(carbs.pcx$rotation[,1],carbs.pcx$rotation[,2],pch=19,col=mycolor)
 
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(lipids.pcx, cex=c(0.6, 0.6),
@@ -103,6 +125,24 @@ ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep="")
 ,main="Principal Components Analysis\nLipid subset")
 text(lipids.pcx$x[,1],lipids.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
+mylabels <- str_extract(rownames(lipids.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(lipids.pcx$x[,1],lipids.pcx$x[,2],col="white",xlim=c(min(lipids.pcx$x[,1])-10,max(lipids.pcx$x[,1])+10),ylim=c(min(lipids.pcx$x[,2]) - 10, max(lipids.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(lipids.pcx$sdev[1]^2)/mvar(lipids.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep=""),
+,main="Principal Components Analysis\nLipid subset")
+text(lipids.pcx$x[,1],lipids.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+points(lipids.pcx$rotation[,1],lipids.pcx$rotation[,2],pch=19,col=mycolor)
+
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
+coloredBiplot(d.pcx, cex=c(0.6, 0.6),
+arrow.len=0.05,
+xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
+xlabs.col=c(rep("red",10),rep("black",10)),
+expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
+barplot(d.pcx$sdev^2/mvar(d.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
 mylabels <- str_extract(rownames(d.pcx$x),"^[A-Z]+_[0-9]+")
 layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
 plot(d.pcx$x[,1],d.pcx$x[,2],col="white",xlim=c(min(d.pcx$x[,1])-10,max(d.pcx$x[,1])+10),ylim=c(min(d.pcx$x[,2]) - 10, max(d.pcx$x[,2]) + 10),
@@ -110,6 +150,42 @@ xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
 ,main="Principal Components Analysis")
 text(d.pcx$x[,1],d.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+
+mylabels <- str_extract(rownames(d.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(d.pcx$x[,1],d.pcx$x[,2],col="white",xlim=c(min(d.pcx$x[,1])-10,max(d.pcx$x[,1])+10),ylim=c(min(d.pcx$x[,2]) - 10, max(d.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
+,main="Principal Components Analysis")
+text(d.pcx$x[,1],d.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+points(d.pcx$rotation[,1],d.pcx$rotation[,2],pch=19,col=mycolor)
+
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
+coloredBiplot(d.filter.pcx, cex=c(0.6, 0.6),
+arrow.len=0.05,
+xlab=paste("PC1 ", round (sum(d.filter.pcx$sdev[1]^2)/mvar(d.filter.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep=""),
+xlabs.col=c(rep("red",10),rep("black",10)),
+expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
+barplot(d.filter.pcx$sdev^2/mvar(d.filter.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
+mylabels <- str_extract(rownames(d.filter.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(d.filter.pcx$x[,1],d.filter.pcx$x[,2],col="white",xlim=c(min(d.filter.pcx$x[,1])-10,max(d.filter.pcx$x[,1])+10),ylim=c(min(d.filter.pcx$x[,2]) - 10, max(d.filter.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(d.filter.pcx$sdev[1]^2)/mvar(d.filter.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep=""),
+,main="Principal Components Analysis")
+text(d.filter.pcx$x[,1],d.filter.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+
+mylabels <- str_extract(rownames(d.filter.pcx$x),"^[A-Z]+_[0-9]+")
+layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
+plot(d.filter.pcx$x[,1],d.filter.pcx$x[,2],col="white",xlim=c(min(d.filter.pcx$x[,1])-10,max(d.filter.pcx$x[,1])+10),ylim=c(min(d.filter.pcx$x[,2]) - 10, max(d.filter.pcx$x[,2]) + 10),
+xlab=paste("PC1 ", round (sum(d.filter.pcx$sdev[1]^2)/mvar(d.filter.clr),3), sep=""),
+ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep=""),
+,main="Principal Components Analysis")
+text(d.filter.pcx$x[,1],d.filter.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
+points(d.filter.pcx$rotation[,1],d.filter.pcx$rotation[,2],pch=19,col=mycolor)
+
 
 dev.off()
 

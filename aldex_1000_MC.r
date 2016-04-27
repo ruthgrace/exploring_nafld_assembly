@@ -4,7 +4,7 @@ library(ALDEx2)
 nash <- c("CL_166_BL_R2_R1", "CL_169_BL_R1", "CL_139_BL_2_R1", "CL_173_2_R1", "CL_144_2_R1", "CL_177_R1", "CL_160_R1", "CL_165_R1", "CL_119_R1", "CL_141_BL_R2_R1")
 healthy <- c("HLD_100_R1", "HLD_102_R1", "HLD_111_2_R1", "HLD_80_R1", "HLD_85_R1", "HLD_28_R1", "HLD_47_R1", "HLD_72_2_R1", "HLD_112_R1", "HLD_23_R1")
 
-aldex.data <- read.table("/Volumes/data/ruth/nafld_assembly/assembly_test_blast/subsys4_counts/AitchisonTransform_input_for_stripcharts_merged_subsys_AitchisonTransformedDataForALDExInput.txt",sep="\t",row.names=1,quote="",comment.char="",header=TRUE)
+aldex.data <- read.table("./subsys4_counts/AitchisonTransform_input_for_stripcharts_merged_subsys_AitchisonTransformedDataForALDExInput.txt",sep="\t",row.names=1,quote="",comment.char="",header=TRUE)
 
 conditions <- colnames(aldex.data)
 conditions[which(conditions %in% nash)] <- "nash"
