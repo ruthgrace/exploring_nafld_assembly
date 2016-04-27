@@ -70,7 +70,7 @@ d.filter.pcx <- prcomp(d.filter.clr)
 conds <- data.frame(groups)
 colnames(conds) <- "cond"
 
-palette=palette(c(rgb(1,0,0,0.6), rgb(0,0,1,0.2), rgb(0,1,1,0.6)))
+palette=palette(c(rgb(1,0,0,0.6), rgb(0,0,1,0.3), rgb(0,1,1,0.6)))
 dev.off()
 
 pdf("biplots.pdf")
@@ -98,7 +98,7 @@ ylab=paste("PC2 ", round (sum(carbs.pcx$sdev[2]^2)/mvar(carbs.clr),3), sep=""),
 ,main="Principal Components Analysis\nCarbohydrate subset")
 text(carbs.pcx$x[,1],carbs.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-points <- c(rep(".", length(dimnames(carbs.pcx$rotation)[[1]])))
+points <- c(rep("o", length(dimnames(carbs.pcx$rotation)[[1]])))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(carbs.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
@@ -127,7 +127,7 @@ ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep="")
 ,main="Principal Components Analysis\nLipid subset")
 text(lipids.pcx$x[,1],lipids.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-points <- c(rep(".", length(dimnames(lipids.pcx$rotation)[[1]])))
+points <- c(rep("o", length(dimnames(lipids.pcx$rotation)[[1]])))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(lipids.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
@@ -156,7 +156,7 @@ ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
 ,main="Principal Components Analysis")
 text(d.pcx$x[,1],d.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-points <- c(rep(".", length(dimnames(d.pcx$rotation)[[1]])))
+points <- c(rep("o", length(dimnames(d.pcx$rotation)[[1]])))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(d.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
@@ -185,7 +185,7 @@ ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep
 ,main="Principal Components Analysis\nwith sparsity filter")
 text(d.filter.pcx$x[,1],d.filter.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-points <- c(rep(".", length(dimnames(d.filter.pcx$rotation)[[1]])))
+points <- c(rep("o", length(dimnames(d.filter.pcx$rotation)[[1]])))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(d.filter.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
