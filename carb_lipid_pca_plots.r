@@ -295,7 +295,7 @@ print("lipid functions")
 print(paste(dimnames(lipids.pcx$rotation)[[1]][lipids.high.effect],collapse="\n"))
 
 points <- c(rep("", length(dimnames(amino.pcx$rotation)[[1]])))
-amino.high.effect <- which(x$effect[match(dimnames(amino.pcx$rotation)[[1]], rownames(x))] > 0.5)
+amino.high.effect <- which(x$effect[match(dimnames(amino.pcx$rotation)[[1]], rownames(x))] > 1)
 points[amino.high.effect] <- c(1:length(amino.high.effect))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(amino.pcx, cex=c(0.6, 0.6),
