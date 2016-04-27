@@ -85,7 +85,7 @@ d.filter.pcx <- prcomp(d.filter.clr)
 conds <- data.frame(groups)
 colnames(conds) <- "cond"
 
-palette=palette(c(rgb(1,0,0,0.6), rgb(0,0,1,0.3), rgb(0,1,1,0.6)))
+palette=palette(c(rgb(1,0,0,0.6), rgb(0,0,1,0.5), rgb(0,1,1,0.6)))
 dev.off()
 
 pdf("biplots.pdf")
@@ -265,7 +265,8 @@ barplot(d.pcx$sdev^2/mvar(d.clr),  ylab="variance explained", xlab="Component", 
 
 
 points <- c(rep("", length(dimnames(carbs.pcx$rotation)[[1]])))
-points[which(dimnames(carbs.pcx$rotation)[[1]] %in% rownames(x)[high.effect])] <- dimnames(carbs.pcx$rotation)[[1]][which(dimnames(carbs.pcx$rotation)[[1]] %in% rownames(x)[high.effect])]
+carbs.high.effect <- which(dimnames(carbs.pcx$rotation)[[1]] %in% rownames(x)[high.effect])
+points[carbs.high.effect] <- c(1:length(carbs.high.effect))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(carbs.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
@@ -275,11 +276,12 @@ xlabs.col=c(rep("black",10),rep("red",10)),
 ylabs=points,
 expand=0.8,var.axes=FALSE, scale=1, main="Carbohydrate functions biplot")
 barplot(carbs.pcx$sdev^2/mvar(carbs.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
-
+print("carbohydrate functions")
+print(paste(dimnames(carbs.pcx$rotation)[[1]][carbs.high.effect],collapse="\n"))
 
 points <- c(rep("", length(dimnames(lipids.pcx$rotation)[[1]])))
 lipids.high.effect <- which(x$effect[match(dimnames(lipids.pcx$rotation)[[1]], rownames(x))] > 0.5)
-points[lipids.high.effect] <- dimnames(lipids.pcx$rotation)[[1]][lipids.high.effect]
+points[lipids.high.effect] <- c(1:length(lipids.high.effect))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(lipids.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
@@ -289,10 +291,12 @@ xlabs.col=c(rep("black",10),rep("red",10)),
 ylabs=points,
 expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
 barplot(lipids.pcx$sdev^2/mvar(lipids.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+print("lipid functions")
+print(paste(dimnames(lipids.pcx$rotation)[[1]][lipids.high.effect],collapse="\n"))
 
 points <- c(rep("", length(dimnames(amino.pcx$rotation)[[1]])))
 amino.high.effect <- which(x$effect[match(dimnames(amino.pcx$rotation)[[1]], rownames(x))] > 0.5)
-points[amino.high.effect] <- dimnames(amino.pcx$rotation)[[1]][amino.high.effect]
+points[amino.high.effect] <- c(1:length(amino.high.effect))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(amino.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
@@ -302,6 +306,7 @@ xlabs.col=c(rep("black",10),rep("red",10)),
 ylabs=points,
 expand=0.8,var.axes=FALSE, scale=1, main="Amino acids functions biplot")
 barplot(amino.pcx$sdev^2/mvar(amino.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
-
+print("amino acid functions")
+print(paste(dimnames(amino.pcx$rotation)[[1]][amino.high.effect],collapse="\n"))
 dev.off()
 
