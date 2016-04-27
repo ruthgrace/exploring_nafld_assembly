@@ -98,15 +98,17 @@ ylab=paste("PC2 ", round (sum(carbs.pcx$sdev[2]^2)/mvar(carbs.clr),3), sep=""),
 ,main="Principal Components Analysis\nCarbohydrate subset")
 text(carbs.pcx$x[,1],carbs.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-#pca only, no biplot
-mylabels <- str_extract(rownames(carbs.pcx$x),"^[A-Z]+_[0-9]+")
-layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
-plot(carbs.pcx$x[,1],carbs.pcx$x[,2],col="white",xlim=c(min(carbs.pcx$x[,1])-10,max(carbs.pcx$x[,1])+10),ylim=c(min(carbs.pcx$x[,2]) - 10, max(carbs.pcx$x[,2]) + 10),
+points <- c(rep("o", length(dimnames(carbs.pcx$rotation)[[1]])))
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
+coloredBiplot(carbs.pcx, cex=c(0.6, 0.6),
+arrow.len=0.05,
 xlab=paste("PC1 ", round (sum(carbs.pcx$sdev[1]^2)/mvar(carbs.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(carbs.pcx$sdev[2]^2)/mvar(carbs.clr),3), sep=""),
-,main="Principal Components Analysis\nCarbohydrate subset")
-text(carbs.pcx$x[,1],carbs.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
-points(carbs.pcx$rotation[,1],carbs.pcx$rotation[,2],pch=19,col=mycolor)
+xlabs.col=c(rep("red",10),rep("black",10)),
+ylabs=points,
+expand=0.8,var.axes=FALSE, scale=1, main="Carbohydrate functions biplot")
+barplot(carbs.pcx$sdev^2/mvar(carbs.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
 
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(lipids.pcx, cex=c(0.6, 0.6),
@@ -125,14 +127,17 @@ ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep="")
 ,main="Principal Components Analysis\nLipid subset")
 text(lipids.pcx$x[,1],lipids.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-mylabels <- str_extract(rownames(lipids.pcx$x),"^[A-Z]+_[0-9]+")
-layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
-plot(lipids.pcx$x[,1],lipids.pcx$x[,2],col="white",xlim=c(min(lipids.pcx$x[,1])-10,max(lipids.pcx$x[,1])+10),ylim=c(min(lipids.pcx$x[,2]) - 10, max(lipids.pcx$x[,2]) + 10),
+points <- c(rep("o", length(dimnames(lipids.pcx$rotation)[[1]])))
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
+coloredBiplot(lipids.pcx, cex=c(0.6, 0.6),
+arrow.len=0.05,
 xlab=paste("PC1 ", round (sum(lipids.pcx$sdev[1]^2)/mvar(lipids.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(lipids.pcx$sdev[2]^2)/mvar(lipids.clr),3), sep=""),
-,main="Principal Components Analysis\nLipid subset")
-text(lipids.pcx$x[,1],lipids.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
-points(lipids.pcx$rotation[,1],lipids.pcx$rotation[,2],pch=19,col=mycolor)
+xlabs.col=c(rep("red",10),rep("black",10)),
+ylabs=points,
+expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
+barplot(lipids.pcx$sdev^2/mvar(lipids.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
 
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(d.pcx, cex=c(0.6, 0.6),
@@ -151,14 +156,17 @@ ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
 ,main="Principal Components Analysis")
 text(d.pcx$x[,1],d.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-mylabels <- str_extract(rownames(d.pcx$x),"^[A-Z]+_[0-9]+")
-layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
-plot(d.pcx$x[,1],d.pcx$x[,2],col="white",xlim=c(min(d.pcx$x[,1])-10,max(d.pcx$x[,1])+10),ylim=c(min(d.pcx$x[,2]) - 10, max(d.pcx$x[,2]) + 10),
+points <- c(rep("o", length(dimnames(d.pcx$rotation)[[1]])))
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
+coloredBiplot(d.pcx, cex=c(0.6, 0.6),
+arrow.len=0.05,
 xlab=paste("PC1 ", round (sum(d.pcx$sdev[1]^2)/mvar(d.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(d.pcx$sdev[2]^2)/mvar(d.clr),3), sep=""),
-,main="Principal Components Analysis")
-text(d.pcx$x[,1],d.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
-points(d.pcx$rotation[,1],d.pcx$rotation[,2],pch=19,col=mycolor)
+xlabs.col=c(rep("red",10),rep("black",10)),
+ylabs=points,
+expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
+barplot(d.pcx$sdev^2/mvar(d.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
+
 
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(d.filter.pcx, cex=c(0.6, 0.6),
@@ -177,17 +185,20 @@ ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep
 ,main="Principal Components Analysis")
 text(d.filter.pcx$x[,1],d.filter.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
 
-mylabels <- str_extract(rownames(d.filter.pcx$x),"^[A-Z]+_[0-9]+")
-layout(matrix(c(1),1,1,byrow=T),widths=c(7),heights=c(7))
-plot(d.filter.pcx$x[,1],d.filter.pcx$x[,2],col="white",xlim=c(min(d.filter.pcx$x[,1])-10,max(d.filter.pcx$x[,1])+10),ylim=c(min(d.filter.pcx$x[,2]) - 10, max(d.filter.pcx$x[,2]) + 10),
+points <- c(rep("o", length(dimnames(d.filter.pcx$rotation)[[1]])))
+layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
+coloredBiplot(d.filter.pcx, cex=c(0.6, 0.6),
+arrow.len=0.05,
 xlab=paste("PC1 ", round (sum(d.filter.pcx$sdev[1]^2)/mvar(d.filter.clr),3), sep=""),
 ylab=paste("PC2 ", round (sum(d.filter.pcx$sdev[2]^2)/mvar(d.filter.clr),3), sep=""),
-,main="Principal Components Analysis")
-text(d.filter.pcx$x[,1],d.filter.pcx$x[,2],labels = mylabels,col=c(rep("red",10),rep("black",10)))
-points(d.filter.pcx$rotation[,1],d.filter.pcx$rotation[,2],pch=19,col=mycolor)
-
+xlabs.col=c(rep("red",10),rep("black",10)),
+ylabs=points,
+expand=0.8,var.axes=FALSE, scale=1, main="Lipid functions biplot")
+barplot(d.filter.pcx$sdev^2/mvar(d.filter.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
 
 dev.off()
 
-
-
+# library(ALDEx2)
+# 
+# x <- aldex(d.pca.data, groups)
+# write.table(x,file="aldex_output_pca_plot_script.txt",sep="\t",quote=FALSE)
