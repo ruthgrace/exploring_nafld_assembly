@@ -6,7 +6,7 @@ library(stringr)
 
 d <- read.table("all_counts_with_seq_length_zeros_removed.txt",sep="\t",quote="",comment.char="",header=TRUE)
 
-colnames(d) <- str_extract(colnames(d),"^[A-Z]+_[0-9]+")
+colnames(d)[c(3:22)] <- str_extract(colnames(d)[c(3:22)],"^[A-Z]+_[0-9]+")
 
 carbs <- d[which(d$subsys1 == "Carbohydrates"),]
 lipids <- d[which(d$subsys1 == "Fatty Acids, Lipids, and Isoprenoids"),]
