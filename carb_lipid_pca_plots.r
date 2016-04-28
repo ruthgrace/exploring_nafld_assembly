@@ -252,7 +252,7 @@ print(paste("rownames are in the same order in aldex output: ",all.equal(rowname
 high.effect <- which(abs(x$effect) > 1)
 
 points <- c(rep("", length(dimnames(d.pcx$rotation)[[1]])))
-points[high.effect] <- dimnames(d.pcx$rotation)[[1]][high.effect]
+points[high.effect] <- c(1:length(high.effect))
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 coloredBiplot(d.pcx, cex=c(0.6, 0.6),
 arrow.len=0.05,
@@ -262,7 +262,8 @@ xlabs.col=c(rep("black",10),rep("red",10)),
 ylabs=points,
 expand=0.8,var.axes=FALSE, scale=1, main="Principal Components Analysis")
 barplot(d.pcx$sdev^2/mvar(d.clr),  ylab="variance explained", xlab="Component", main="Scree plot") # scree plot
-
+print("all functions with high effect size")
+print(paste(dimnames(d.pcx$rotation)[[1]][high.effect],collapse="\n"))
 
 points <- c(rep("", length(dimnames(carbs.pcx$rotation)[[1]])))
 carbs.high.effect <- which(dimnames(carbs.pcx$rotation)[[1]] %in% rownames(x)[high.effect])
