@@ -17,6 +17,13 @@ lipids.samples <- lipids[,c(3:(ncol(lipids)-4))]
 amino.samples <- amino[,c(3:(ncol(amino)-4))]
 d.samples <- d[,c(3:(ncol(d)-4))]
 
+remove <- c("HLD_23","CL_166")
+
+carbs.samples <- carbs.samples[,which(!(colnames(carbs.samples) %in% remove))]
+lipids.samples <- lipids.samples[,which(!(colnames(lipids.samples) %in% remove))]
+amino.samples <- amino.samples[,which(!(colnames(amino.samples) %in% remove))]
+d.samples <- d.samples[,which(!(colnames(d.samples) %in% remove))]
+
 # aggregate by subsys4
 grouping <- carbs$subsys4
 carbs.pca.data <- aggregate(carbs.samples,list(grouping),sum)
@@ -88,7 +95,7 @@ colnames(conds) <- "cond"
 palette=palette(c(rgb(1,0,0,0.6), rgb(0,0,1,0.5), rgb(0,1,1,0.6)))
 dev.off()
 
-pdf("biplots.pdf")
+pdf("biplots_with_no_outliers.pdf")
 
 layout(matrix(c(1,2),1,2, byrow=T), widths=c(6,2), heights=c(8,3))
 par(mgp=c(2,0.5,0))
